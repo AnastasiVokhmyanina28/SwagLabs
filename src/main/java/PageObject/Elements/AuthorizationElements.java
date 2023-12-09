@@ -9,4 +9,5 @@ public class AuthorizationElements {
     private static final SelenideElement password = $("#password").as("Поле ввода 'Password'");
     private static final SelenideElement logginButton = $("#login-button").as("Кнопка 'Login'");
     private static final SelenideElement title = $(".login_logo").as("Заголовок");
+
 }
