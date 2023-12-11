@@ -1,7 +1,7 @@
 package PageObject.Page;
 
-import PageObject.Frame.AuthorizationFrame;
+import PageObject.Elements.AuthorizationElements;
 
 public class AuthorizationPage {
-    public static AuthorizationFrame frame = new AuthorizationFrame();
+    public static AuthorizationElements elements = new AuthorizationElements();
 }
