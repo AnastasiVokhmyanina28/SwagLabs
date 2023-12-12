@@ -9,8 +9,7 @@ public class AddingAnItemToCartTest extends BaseClass {
     private AuthorizationPage page = new AuthorizationPage();
 
     @Test(description = "Добавление товара в корзину", dataProvider = "authParamUser", dataProviderClass = AuthorizationElements.class)
-    public void addingAnItemToCartTest(String USER, String PASS) {
-        page.elements.fillInFields(USER, PASS);
-
+    public void addingAnItemToCartTest(String user, String pass) {
+        page.elements.fillInFields(user, pass);
     }
 }
