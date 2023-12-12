@@ -7,4 +7,5 @@ import com.codeborne.selenide.SelenideElement;
 
 public class HomeElements {
     private static final ElementsCollection cards = $$(".inventory_item").as("Карточки товаров на главное странице");
+    private static final SelenideElement productSort = $(".active_option").as("Сортировка товара");
 }

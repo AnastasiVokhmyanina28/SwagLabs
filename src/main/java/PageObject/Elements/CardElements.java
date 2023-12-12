@@ -7,9 +7,10 @@ import com.codeborne.selenide.SelenideElement;
 
 public class CardElements {
     /**
-     * описание открытой карточки
+     * описание карточки в корзине
      */
     private static final SelenideElement cards = $(".cart_item").as("Карточка товара в корзине");
+    private static final SelenideElement cardList = $(".cart_list").as("Список товаров в корзине");
     private static final SelenideElement productName = $(".inventory_item_name").as("Название товара");
     private static final SelenideElement price = $(".inventory_item_price").as("Стоимость товара");
     private static final SelenideElement continueShoppingButton = $("#continue-shopping").as("Кнопка 'Вернуться к покупкам'");
