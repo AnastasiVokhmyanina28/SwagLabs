@@ -1,10 +1,12 @@
 package PageObject.Elements;
 
-import Servise.Config.TestConfig;
+import Data.UserData;
+import Data.Users;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.aeonbits.owner.ConfigFactory;
 import org.testng.annotations.DataProvider;
+
+import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,18 +17,12 @@ public class AuthorizationElements {
     private static final SelenideElement logginButton = $("#login-button").as("Кнопка 'Login'");
     private static final SelenideElement title = $(".app_logo").as("Заголовок");
 
-    static TestConfig config = ConfigFactory.create(TestConfig.class);
-    static String standard_user = config.standardUser();
-    static String password = config.password();
-    static String visual_user = config.visualUser();
-
-    @DataProvider(name = "authParamUser")
-
-    public static Object[][] authParamUser() {
-        return new Object[][]{
-                {standard_user, password},
-                {visual_user, password}
-        };
+    @DataProvider()
+    public static UserData[] authParamUser() {
+        return List.of(
+                Users.STANDARD.getUserData(),
+                Users.VISUAL.getUserData()
+        ).toArray(new UserData[0]);
     }
 
     @Step("Авторизация")
