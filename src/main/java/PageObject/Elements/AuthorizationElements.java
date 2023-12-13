@@ -12,10 +12,10 @@ import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AuthorizationElements {
-    private static final SelenideElement userName = $("#user-name").as("Поле ввода 'UserName'");
-    private static final SelenideElement pass = $("#password").as("Поле ввода 'Password'");
-    private static final SelenideElement logginButton = $("#login-button").as("Кнопка 'Login'");
-    private static final SelenideElement title = $(".app_logo").as("Заголовок");
+    private final SelenideElement userName = $("#user-name").as("Поле ввода 'UserName'");
+    private final SelenideElement pass = $("#password").as("Поле ввода 'Password'");
+    private final SelenideElement logginButton = $("#login-button").as("Кнопка 'Login'");
+    private final SelenideElement title = $(".app_logo").as("Заголовок с главной страницы");
 
     @DataProvider()
     public static UserData[] authParamUser() {
@@ -26,7 +26,7 @@ public class AuthorizationElements {
     }
 
     @Step("Авторизация")
-    public static void fillInFields(String name, String passwords) {
+    public void fillInFields(String name, String passwords) {
         userName.val(name);
         pass.val(passwords);
         logginButton.click();

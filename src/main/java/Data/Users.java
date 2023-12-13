@@ -7,9 +7,8 @@ import lombok.Getter;
 @Getter
 public enum Users {
 
-    STANDARD( new UserData("standard_user", "secret_sauce")),
-    VISUAL(new UserData("visual_user", "secret_sauce"))
-    ;
+    STANDARD(new UserData("standard_user", "secret_sauce")),
+    VISUAL(new UserData("visual_user", "secret_sauce"));
 
     UserData userData;
 }
