@@ -1,6 +1,6 @@
 package tests;
 
-import Data.UserData;
+import Data.User.UserData;
 import PageObject.Elements.AuthorizationElements;
 import PageObject.Page.AuthorizationPage;
 import PageObject.Page.HomePage;

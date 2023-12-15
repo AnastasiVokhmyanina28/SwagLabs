@@ -1,6 +1,6 @@
 package PageObject.Page;
 
-import PageObject.Elements.HomeElements;
+import PageObject.Elements.MainPage.HomeElements;
 
 public class HomePage {
     //главная страница

@@ -1,6 +1,6 @@
 package tests;
 
-import Data.UserData;
+import Data.User.UserData;
 import PageObject.Elements.AuthorizationElements;
 import PageObject.Page.AuthorizationPage;
 import PageObject.Page.HomePage;
@@ -23,7 +23,7 @@ public class DeletingAnItemFromTheCartTest extends BaseClass implements ToolBarE
     @Test(description = "Удаление товара из корзины", dataProvider = "authParamUser", dataProviderClass = AuthorizationElements.class)
     public void deletingAnItem(UserData data) {
         authorizationPage.elements.fillInFields(data.getUser(), data.getPassword());
-        baseStep.emptyYourCart();
+        homePage.homeElements.removeFromCart();
         homePage.homeElements.addItemToCart();
         price = homePage.homeElements.getPrice().getText();
         container.click();

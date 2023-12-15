@@ -1,7 +1,7 @@
 package PageObject.Elements;
 
-import Data.UserData;
-import Data.Users;
+import Data.User.UserData;
+import Data.User.Users;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.testng.annotations.DataProvider;

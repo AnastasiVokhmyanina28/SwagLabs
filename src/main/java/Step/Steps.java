@@ -56,7 +56,7 @@ public class Steps implements ToolBarElements {
 
     @Step("Проверка отображения главной страницы")
     public void homepageIsOpen() {
-        assertThat(homePage.homeElements.getCards().isEmpty()).as("Карточки товаров не отображаются").isFalse();
+        assertThat(homePage.homeElements.getProductTableElements().isEmpty()).as("Карточки товаров не отображаются").isFalse();
     }
 
     @Step("Проверка удаления товара")

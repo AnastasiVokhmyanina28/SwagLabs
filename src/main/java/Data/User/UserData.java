@@ -1,4 +1,4 @@
-package Data;
+package Data.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
