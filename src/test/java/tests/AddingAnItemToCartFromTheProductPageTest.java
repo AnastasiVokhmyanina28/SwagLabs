@@ -11,7 +11,6 @@ import Step.Steps;
 import ToolBar.ToolBarElements;
 import org.testng.annotations.Test;
 
-
 public class AddingAnItemToCartFromTheProductPageTest extends BaseClass implements ToolBarElements {
 
     private CardsGoodsInTheCartElements cardsGoodsInTheCartElements = new CardsGoodsInTheCartElements();
@@ -43,7 +42,6 @@ public class AddingAnItemToCartFromTheProductPageTest extends BaseClass implemen
         steps.checkOfAddingAnItemToTheCart();
 
         /**Открытие корзины*/
-        container.click();
         steps.cartOpeningCheck(price);
 
         cardsGoodsInTheCartElements.getCheckout().click();

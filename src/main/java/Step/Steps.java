@@ -10,6 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class Steps implements ToolBarElements {
 
     private CardPage cardPage = new CardPage();
+    private ShoppingContainerPage shoppingContainerPage = new ShoppingContainerPage();
     private CheckoutOverviewPage overviewPage = new CheckoutOverviewPage();
     private HomePage homePage = new HomePage();
     private OrderFormPage orderForm = new OrderFormPage();
@@ -57,4 +58,17 @@ public class Steps implements ToolBarElements {
     public void homepageIsOpen() {
         assertThat(homePage.homeElements.getCards().isEmpty()).as("Карточки товаров не отображаются").isFalse();
     }
+
+    @Step("Проверка удаления товара")
+    public void productRemoval() {
+        assertThat(badge.isDisplayed()).as("Бейдж количества товаров в корзине отображается").isFalse();
+        assertThat(shoppingContainerPage.cardsGoodsInTheCartElements.getCards().isEmpty()).as("Товар из корзины не удален").isTrue();
+    }
+
+    @Step("Проверка кнопки удаления")
+    public void checkTheDeleteButton() {
+        assertThat(homePage.homeElements.getDeleteButton().exists()).isFalse();
+    }
+
+
 }

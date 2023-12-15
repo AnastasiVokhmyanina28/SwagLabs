@@ -17,7 +17,6 @@ public class HomeElements implements ToolBarElements {
     private final SelenideElement productSort = $(".active_option").as("Сортировка товара");
     private final SelenideElement productName = $("#item_4_title_link").as("Название товара");
     private final SelenideElement deleteButton = $("#remove-sauce-labs-backpack").as("Кнопка удаления товара");
-    //переделать
     public final SelenideElement allDeleteButton = $x("//button[contains(@id, 'remove')]").as("Все кнопки удаления");
     public final ElementsCollection allButtons = $$x("//div[@class='inventory_item']//button").as("Кнопки из карточки товара");
     private final SelenideElement addButton = $("#add-to-cart-sauce-labs-backpack").as("Кнопка добавления товара");
