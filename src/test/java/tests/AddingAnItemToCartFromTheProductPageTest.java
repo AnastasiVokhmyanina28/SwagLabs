@@ -15,13 +15,15 @@ import org.testng.annotations.Test;
 public class AddingAnItemToCartFromTheProductPageTest extends BaseClass implements ToolBarElements {
 
     private CardsGoodsInTheCartElements cardsGoodsInTheCartElements = new CardsGoodsInTheCartElements();
+    private CheckoutCompletePage checkoutCompletePage = new CheckoutCompletePage();
+    private CheckoutOverviewPage overviewPage = new CheckoutOverviewPage();
     private AuthorizationPage authorization = new AuthorizationPage();
     private OrderFormPage orderForm = new OrderFormPage();
     private Person person = Person.randomized();
     private BaseStep baseStep = new BaseStep();
-    private Steps steps = new Steps();
     private HomePage homePage = new HomePage();
     private CardPage cardPage = new CardPage();
+    private Steps steps = new Steps();
     private String price;
 
     @Test(description = "Добавить товар в корзину из карточки и оформить заказ", dataProvider = "authParamUser", dataProviderClass = AuthorizationElements.class)
@@ -55,5 +57,11 @@ public class AddingAnItemToCartFromTheProductPageTest extends BaseClass implemen
         /**Проверка данных заказа*/
         orderForm.orderFormElements.getContinueButton().click();
         steps.orderPlacement();
+
+        overviewPage.overviewElements.getFinishButton().click();
+        steps.orderConfirmation();
+
+        checkoutCompletePage.completeElements.getBackHomeButton().click();
+        steps.homepageIsOpen();
     }
 }

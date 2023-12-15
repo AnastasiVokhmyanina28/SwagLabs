@@ -1,10 +1,7 @@
 package Step;
 
 import PageObject.Elements.CardsGoodsInTheCartElements;
-import PageObject.Page.CardPage;
-import PageObject.Page.CheckoutOverviewPage;
-import PageObject.Page.HomePage;
-import PageObject.Page.OrderFormPage;
+import PageObject.Page.*;
 import ToolBar.ToolBarElements;
 import io.qameta.allure.Step;
 
@@ -16,6 +13,7 @@ public class Steps implements ToolBarElements {
     private CheckoutOverviewPage overviewPage = new CheckoutOverviewPage();
     private HomePage homePage = new HomePage();
     private OrderFormPage orderForm = new OrderFormPage();
+    private CheckoutCompletePage checkoutCompletePage = new CheckoutCompletePage();
 
     private CardsGoodsInTheCartElements cardsGoodsInTheCartElements = new CardsGoodsInTheCartElements();
 
@@ -48,5 +46,15 @@ public class Steps implements ToolBarElements {
         assertThat(Double.parseDouble(overviewPage.overviewElements.getItemTotal().getText().split("\\$")[1])
                 + Double.parseDouble(overviewPage.overviewElements.getTax().getText().split("\\$")[1])).as("")
                 .isEqualTo(Double.parseDouble(overviewPage.overviewElements.getTotal().getText().split("\\$")[1]));
+    }
+
+    @Step("Проверка подтверждения отправки заказа")
+    public void orderConfirmation() {
+        assertThat(checkoutCompletePage.completeElements.getText().exists()).as("Заказ не отправлен").isTrue();
+    }
+
+    @Step("Проверка отображения главной страницы")
+    public void homepageIsOpen() {
+        assertThat(homePage.homeElements.getCards().isEmpty()).as("Карточки товаров не отображаются").isFalse();
     }
 }
