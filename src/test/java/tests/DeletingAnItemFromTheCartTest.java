@@ -1,36 +1,33 @@
 package tests;
 
 import Data.User.UserData;
-import PageObject.Elements.AuthorizationElements;
-import PageObject.Page.AuthorizationPage;
-import PageObject.Page.HomePage;
-import PageObject.Page.ShoppingContainerPage;
-import Servise.BaseStep;
+import PageObject.Elements.AuthorizationPage;
+import PageObject.Elements.CardsGoodsInTheCartPage;
+import PageObject.Elements.MainPage.HomePage;
 import Servise.ChromeDriver.BaseClass;
 import Step.Steps;
 import ToolBar.ToolBarElements;
 import org.testng.annotations.Test;
 
 public class DeletingAnItemFromTheCartTest extends BaseClass implements ToolBarElements {
-    private ShoppingContainerPage shoppingContainerPage = new ShoppingContainerPage();
+    private CardsGoodsInTheCartPage shoppingContainerPage = new CardsGoodsInTheCartPage();
 
     private AuthorizationPage authorizationPage = new AuthorizationPage();
     private HomePage homePage = new HomePage();
-    private BaseStep baseStep = new BaseStep();
     private Steps steps = new Steps();
     private String price;
 
-    @Test(description = "Удаление товара из корзины", dataProvider = "authParamUser", dataProviderClass = AuthorizationElements.class)
+    @Test(description = "Удаление товара из корзины", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void deletingAnItem(UserData data) {
-        authorizationPage.elements.fillInFields(data.getUser(), data.getPassword());
-        homePage.homeElements.removeFromCart();
-        homePage.homeElements.addItemToCart();
-        price = homePage.homeElements.getPrice().getText();
+        authorizationPage.fillInFields(data.getUser(), data.getPassword());
+        homePage.removeFromCart();
+        homePage.addItemToCart();
+        price = homePage.getPrice().getText();
         container.click();
         steps.cartOpeningCheck(price);
-        shoppingContainerPage.cardsGoodsInTheCartElements.getRemoveButton().click();
+        shoppingContainerPage.getRemoveButton().click();
         steps.productRemoval();
-        shoppingContainerPage.cardsGoodsInTheCartElements.getContinueShoppingButton().click();
+        shoppingContainerPage.getContinueShoppingButton().click();
         steps.checkTheDeleteButton();
     }
 }

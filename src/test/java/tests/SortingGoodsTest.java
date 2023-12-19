@@ -1,19 +1,35 @@
 package tests;
 
 import Data.User.UserData;
-import PageObject.Elements.AuthorizationElements;
-import PageObject.Page.AuthorizationPage;
-import PageObject.Page.HomePage;
+import PageObject.Elements.AuthorizationPage;
+import PageObject.Elements.MainPage.HomePage;
 import Servise.ChromeDriver.BaseClass;
 import org.testng.annotations.Test;
 
 public class SortingGoodsTest extends BaseClass {
-    private AuthorizationPage authorizationPage = new AuthorizationPage();
-    private HomePage homePage = new HomePage();
 
-    @Test(description = "Отсортировать товар по алфавиту", dataProvider = "authParamUser", dataProviderClass = AuthorizationElements.class)
-    public void sortProduct(UserData userData){
-        authorizationPage.elements.fillInFields(userData.getUser(), userData.getPassword());
-        //todo
+    @Test(description = "Отсортировать товар по алфавиту", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
+    public void sortProductName(UserData userData) {
+        AuthorizationPage authPage = new AuthorizationPage();
+
+        HomePage homePage = authPage.fillInFields(userData.getUser(), userData.getPassword());
+
+        homePage
+                .removeFromCart()
+                .getAllProducts();
+
+
+        homePage.getProductSort().click(); //в  step
+        homePage.getSortAZ().click();// <-
+
+        homePage.sortElementsInAscendingOrderNames(homePage.getListOfElementNames());
+//        homePage.homeElements.sortElementsInAscendingOrderNames(homePage.homeElements.getListOfElementsPrice());
+
+//        homePage.homeElements.getAllProducts().get().getName();
+    }
+
+    public void sortProductPrice() {
+
+
     }
 }

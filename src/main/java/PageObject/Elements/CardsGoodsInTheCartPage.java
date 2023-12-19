@@ -7,7 +7,7 @@ import lombok.Getter;
 import static com.codeborne.selenide.Selenide.*;
 
 @Getter
-public class CardsGoodsInTheCartElements {
+public class CardsGoodsInTheCartPage {
     /**
      * описание карточки в корзине
      */

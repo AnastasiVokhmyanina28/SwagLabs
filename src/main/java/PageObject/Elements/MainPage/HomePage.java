@@ -16,13 +16,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class HomeElements implements ToolBarElements {
+public class HomePage implements ToolBarElements {
 
-    List<ProductBox> allProducts = new ArrayList<>();
+    List<ProductBox> allProducts = initProducts();
 
     private final ElementsCollection productTableElements = $$(".inventory_item").as("Карточки товаров на главное странице");
-    private final SelenideElement productSort = $(".active_option").as("Сортировка товара");
-    //private final ElementsCollection listOfElementNames = $$(".inventory_item_name").as("Список наименований товаров");
+    private final SelenideElement productSort = $(".product_sort_container").as("Сортировка товара");
+    private final ElementsCollection listOfElementNames = $$(".inventory_item_name").as("Список наименований товаров");
+    private final ElementsCollection listOfElementsPrice = $$(".inventory_item_price").as("Список цен товаров");
+    /****/
+    private final SelenideElement sortAZ = $x("//option[@value='az']").as("Сортировка по алфавиту");
+    private final SelenideElement ascendingOrderOfPrice = $x("//option[@value='lohi']").as("Сортировка по возрастанию цены");
 
 
     private final SelenideElement productName = $("#item_4_title_link").as("Название товара");
@@ -35,15 +39,19 @@ public class HomeElements implements ToolBarElements {
     private final SelenideElement price = $x("//div[@class='inventory_item_label']/a[@id='item_4_title_link']/../following-sibling::div//div[@class='inventory_item_price']").as("Цена товара");
 
     //todo
-    private List<ProductBox> initProducts(){
-        productTableElements.forEach(
-                (element ->
-                        allProducts.add(new ProductBox(element))
-                )
-        );
+    private List<ProductBox> initProducts() {
+        List<ProductBox> result = new ArrayList<>();
+        if (productTableElements != null) {
+            productTableElements.forEach(
+                    (element ->
+                            result.add(new ProductBox(element))
+                    )
+            );
+        }
+        return result;
     }
 
-    public void removeFromCart() {
+    public HomePage removeFromCart() {
         productTableElements
                 .forEach(
                         (product) -> {
@@ -57,19 +65,21 @@ public class HomeElements implements ToolBarElements {
                             }
                         }
                 );
+        return this;
     }
 
     @Step("Добавление товара в корзину")
-    public void addItemToCart() {
+    public HomePage addItemToCart() {
 
         addButton.click();
         assertThat(deleteButton.isDisplayed()).as("Кнопка 'Remove' не отображается. Товар не добавлен в корзину").isTrue();
         assertThat(badge.isDisplayed()).as("При добавлении товара, на корзине не отображается уведомляющий знак").isTrue();
         assertThat(container.getText()).isEqualTo("1");
+        return this;
     }
 
-    @Step("Сортировать элементы по имени")
-    public void sortByName(ElementsCollection elementsCollection) {
+    @Step("Сортировать элементы в порядке возрастания по именам")
+    public void sortElementsInAscendingOrderNames(ElementsCollection elementsCollection) {
         List<String> listOfGoods = new ArrayList();
         List<String> adw = new ArrayList();
         for (int i = 0; i < elementsCollection.size(); i++) {
@@ -86,9 +96,25 @@ public class HomeElements implements ToolBarElements {
         ;
 
         assertThat(listOfGoods)
-                .containsAll(adw);
+                .isEqualTo(adw);
     }
 
+    @Step("Сортировка элеметов по возрастанию стоимости")
+    public void sortElementsInAscendingOrderPrice(ElementsCollection collection) {
+        List<Integer> listOfGoods = new ArrayList<>();
+        List<Integer> price = new ArrayList<>();
+
+        for (int i = 0; i < collection.size(); i++) {
+            listOfGoods.add(Integer.parseInt(collection.get(i).getText().split("\\$")[1]));
+        }
+
+        price = listOfGoods
+                .stream()
+                .sorted()
+                .collect(Collectors.toList());
+
+        assertThat(listOfGoods).isEqualTo(price);
+    }
 
 
 }

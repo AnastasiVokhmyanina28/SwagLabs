@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.*;
  * форма оформления заказа(ввод данных)
  */
 @Getter
-public class OrderFormElements {
+public class OrderFormPage {
     private final SelenideElement firstName = $("#first-name").as("Поле ввода 'first name'");
     private final SelenideElement lastName = $("#last-name").as("Поле ввода 'last name'");
     private final SelenideElement postalCode = $("#postal-code").as("Поле ввода 'postal code'");

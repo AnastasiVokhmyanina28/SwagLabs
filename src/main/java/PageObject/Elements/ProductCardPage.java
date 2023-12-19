@@ -6,7 +6,7 @@ import com.codeborne.selenide.SelenideElement;
 import lombok.Getter;
 
 @Getter
-public class ProductCardElements {
+public class ProductCardPage {
     /**
      * Описание карточки товара
      */
