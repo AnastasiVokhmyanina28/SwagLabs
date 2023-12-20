@@ -17,4 +17,9 @@ public interface ToolBarElements {
         container.click();
         return new CardsGoodsInTheCartPage();
     }
+
+    @Step
+    default Integer getTheNumberOfItemsInTheCart(){
+        return Integer.parseInt(badge.getText());
+    }
 }

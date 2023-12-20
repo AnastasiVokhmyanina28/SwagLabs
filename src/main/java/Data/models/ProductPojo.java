@@ -7,5 +7,5 @@ import lombok.Getter;
 @Getter
 public class ProductPojo {
     private String productName;
-    private String productPrice;
+    private Double productPrice;
 }

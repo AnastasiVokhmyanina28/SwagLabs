@@ -15,24 +15,31 @@ public class Steps implements ToolBarElements {
     private HomePage homePage = new HomePage();
     private OrderFormPage orderForm = new OrderFormPage();
     private CheckoutCompletePage checkoutCompletePage = new CheckoutCompletePage();
+    private Integer quantityOfGoods;
 
     private CardsGoodsInTheCartPage cardsGoodsInTheCartElements = new CardsGoodsInTheCartPage();
 
-
+    //todo
     @Step("Проверка добавления товара в корзину из карточки товара")
     public void checkOfAddingAnItemToTheCart() {
         assertThat(productCardPage.getDeleteButton().exists()).as("Кнопка 'Remove' не отображается.").isTrue();
+
         assertThat(badge.isDisplayed()).as("При добавлении товара, на корзине не отображается уведомляющий знак").isTrue();
-        assertThat(badge.getText()).isEqualTo("1");
+
     }
 
     @Step("Проверка соответствия товара в корзне и с главной страницы")
     public void cartOpeningCheck(String price) {
+
         assertThat(openContainer().getCards().isEmpty()).as("Корзина товаров пуста").isFalse();
-        assertThat(cardsGoodsInTheCartElements.getProductName().getText()).as("Название товара отличается")
+
+        quantityOfGoods = shoppingContainerPage.getCards().size();
+        assertThat(quantityOfGoods).isEqualTo(getTheNumberOfItemsInTheCart());
+
+        assertThat(cardsGoodsInTheCartElements.getProductName().get(0).getText()).as("Название товара отличается")
                 .isEqualTo(homePage.getProductName().getText());
 
-        assertThat(cardsGoodsInTheCartElements.getPrice().getText()).as("Стоимость товара отличается").isEqualTo(price);
+        assertThat(cardsGoodsInTheCartElements.getPrice().get(0).getText()).as("Стоимость товара отличается").isEqualTo(price);
         assertThat(cardsGoodsInTheCartElements.getRemoveButton().exists()).as("Кнопка 'Remove' не отображается").isTrue();
     }
 
@@ -43,18 +50,24 @@ public class Steps implements ToolBarElements {
 
     @Step("Проверка соответствия товаров в корзине и при оформлении заказа")
     public void orderPlacement() {
-        assertThat(cardsGoodsInTheCartElements.getProductName().getText()).as("Наименование товаров не совпадают")
+
+        quantityOfGoods = overviewPage.getCardList().size();
+
+        assertThat(quantityOfGoods).isEqualTo(getTheNumberOfItemsInTheCart());
+
+
+        assertThat(cardsGoodsInTheCartElements.getProductName().get(0).getText()).as("Наименование товаров не совпадают")
                 .isEqualTo(overviewPage.getNameProduct().getText());
 
-        assertThat(cardsGoodsInTheCartElements.getPrice().getText()).as("Стоимость товаров не совпадают")
+        assertThat(cardsGoodsInTheCartElements.getPrice().get(0).getText()).as("Стоимость товаров не совпадают")
                 .isEqualTo(overviewPage.getPriceOfGoods().getText());
 
-        assertThat(cardsGoodsInTheCartElements.getPrice().getText()).as("Стоимость товаров не совпадают")
+        assertThat(cardsGoodsInTheCartElements.getPrice().get(0).getText()).as("Стоимость товаров не совпадают")
                 .isEqualTo(overviewPage.getItemTotal().getText().split(": ")[1]);
 
         assertThat(Double.parseDouble(overviewPage.getItemTotal().getText().split("\\$")[1])
                 + Double.parseDouble(overviewPage.getTax().getText().split("\\$")[1])).as("")
-                .isEqualTo(Double.parseDouble(overviewPage.getTotal().getText().split("\\$")[1]));
+                .isEqualTo(Double.parseDouble(overviewPage.getTotal().getText().split("\\$")[1])).as("проверка итоговой суммы");
     }
 
     @Step("Проверка подтверждения отправки заказа")

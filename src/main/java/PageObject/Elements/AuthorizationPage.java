@@ -28,8 +28,8 @@ public class AuthorizationPage {
 
     @Step("Авторизация")
     public HomePage fillInFields(String name, String passwords) {
-        userName.val(name);
-        pass.val(passwords);
+        userName.setValue(name);
+        pass.setValue(passwords);
         logginButton.click();
         assertThat(title.isDisplayed()).as("Заголовок не отображается. Пользователь не прошел авторизацию").isTrue();
         return new HomePage();

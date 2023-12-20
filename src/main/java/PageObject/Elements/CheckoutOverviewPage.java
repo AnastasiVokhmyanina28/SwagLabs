@@ -1,5 +1,6 @@
 package PageObject.Elements;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import lombok.Getter;
 
@@ -13,6 +14,7 @@ public class CheckoutOverviewPage {
     private final SelenideElement tax = $(".summary_tax_label").as("Налог");
     private final SelenideElement total = $x("//div[@class='summary_info_label summary_total_label']").as("Окончательная цена");
     private final SelenideElement cancelButton = $("#cancel");
+    private final ElementsCollection cardList = $$(".cart_item");
     private final SelenideElement finishButton = $("#finish");
 
 

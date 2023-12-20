@@ -45,9 +45,9 @@ public class AddingAnItemToCartFromTheProductPageTest extends BaseClass implemen
         steps.checkOpeningOfTheDataFillingForm();
 
         /** Заполнение данных для оформления заказа*/
-        orderForm.getFirstName().val(person.getName());
-        orderForm.getLastName().val(person.getLastName());
-        orderForm.getPostalCode().val(person.getPostalCode());
+        orderForm.getFirstName().setValue(person.getName());
+        orderForm.getLastName().setValue(person.getLastName());
+        orderForm.getPostalCode().setValue(person.getPostalCode());
 
         /**Проверка данных заказа*/
         orderForm.getContinueButton().click();

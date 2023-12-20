@@ -1,5 +1,6 @@
 package PageObject.Elements.MainPage;
 
+import Data.models.ProductPojo;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
@@ -18,7 +19,6 @@ public class ProductBox {
 
     SelenideElement itemName = container.$(".inventory_item_name");
     SelenideElement itemPrice = container.$(".inventory_item_price");
-
     SelenideElement addButton = container.$x("//button[@class='btn btn_primary btn_small btn_inventory ']");
     SelenideElement deleteButton = container.$x("//button[@class='btn btn_secondary btn_small btn_inventory ']");
 
@@ -32,6 +32,10 @@ public class ProductBox {
     public Double getPrice() {
         return
                 Double.valueOf(itemPrice.getText().replace("$", ""));
+    }
+
+    public ProductPojo toPojo() {
+        return new ProductPojo(getName(), getPrice());
     }
 
     @Step
