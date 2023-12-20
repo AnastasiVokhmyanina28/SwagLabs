@@ -1,6 +1,7 @@
 package PageObject.Elements;
 
 import Data.models.ProductPojo;
+import PageObject.Elements.MainPage.HomePage;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
@@ -33,5 +34,17 @@ public class CardsGoodsInTheCartPage {
             list.add(new ProductPojo(productName.get(i).getText(), Double.parseDouble(price.get(i).getText().split("\\$")[1])));
         }
         return list;
+    }
+
+    @Step("Вернуться к покупкам")
+    public HomePage doClickButtonContinueShopping() {
+        continueShoppingButton.click();
+        return new HomePage();
+    }
+
+    @Step("Перейти к оформлению товара")
+    public OrderFormPage doClickButtonCheckout() {
+        checkout.click();
+        return new OrderFormPage();
     }
 }

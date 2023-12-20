@@ -1,11 +1,16 @@
 package PageObject.Elements;
 
+import PageObject.Elements.MainPage.HomePage;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import lombok.Getter;
 
 import static com.codeborne.selenide.Selenide.*;
 
+/**
+ * Оформление заказа. Информация
+ */
 @Getter
 public class CheckoutOverviewPage {
     private final SelenideElement nameProduct = $(".inventory_item_name").as("Наименование товара");
@@ -17,5 +22,16 @@ public class CheckoutOverviewPage {
     private final ElementsCollection cardList = $$(".cart_item");
     private final SelenideElement finishButton = $("#finish");
 
+    @Step("Вернуться на главную страницу")
+    public HomePage doClickButtonCancel() {
+        cancelButton.click();
+        return new HomePage();
+    }
+
+    @Step("Завершение оформления заказа")
+    public CheckoutCompletePage doClickButtonFinish() {
+        finishButton.click();
+        return new CheckoutCompletePage();
+    }
 
 }

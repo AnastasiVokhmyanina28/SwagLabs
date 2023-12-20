@@ -27,7 +27,7 @@ public class DeletingAnItemFromTheCartTest extends BaseClass implements ToolBarE
         steps.cartOpeningCheck(price);
         shoppingContainerPage.getRemoveButton().click();
         steps.productRemoval();
-        shoppingContainerPage.getContinueShoppingButton().click();
+        shoppingContainerPage.doClickButtonContinueShopping();
         steps.checkTheDeleteButton();
     }
 }

@@ -41,7 +41,7 @@ public class AddingAnItemToCartFromTheProductPageTest extends BaseClass implemen
         /**Открытие корзины*/
         steps.cartOpeningCheck(price);
 
-        cardsGoodsInTheCartElements.getCheckout().click();
+        cardsGoodsInTheCartElements.doClickButtonCheckout();
         steps.checkOpeningOfTheDataFillingForm();
 
         /** Заполнение данных для оформления заказа*/
@@ -50,13 +50,13 @@ public class AddingAnItemToCartFromTheProductPageTest extends BaseClass implemen
         orderForm.getPostalCode().setValue(person.getPostalCode());
 
         /**Проверка данных заказа*/
-        orderForm.getContinueButton().click();
+        orderForm.doClickButtonContinue();
         steps.orderPlacement();
 
-        overviewPage.getFinishButton().click();
+        overviewPage.doClickButtonFinish();
         steps.orderConfirmation();
 
-        checkoutCompletePage.getBackHomeButton().click();
+        checkoutCompletePage.doClickButtonBackHome();
         steps.homepageIsOpen();
     }
 }
