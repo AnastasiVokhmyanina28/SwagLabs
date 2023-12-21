@@ -55,6 +55,8 @@ public class Steps implements ToolBarElements {
 
         assertThat(quantityOfGoods).isEqualTo(getTheNumberOfItemsInTheCart());
 
+        overviewPage.assertListEqualityCheck();
+
 
         assertThat(cardsGoodsInTheCartElements.getProductName().get(0).getText()).as("Наименование товаров не совпадают")
                 .isEqualTo(overviewPage.getNameProduct().getText());

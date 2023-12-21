@@ -2,6 +2,7 @@ package PageObject.Elements;
 
 import Data.models.ProductPojo;
 import PageObject.Elements.MainPage.HomePage;
+import PageObject.Elements.MainPage.ProductBox;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
@@ -27,14 +28,31 @@ public class CardsGoodsInTheCartPage {
             .as("Удалить карточку из корзины");
 
 
-    @Step
-    public List<ProductPojo> productList() {
-        List<ProductPojo> list = new ArrayList<>();
-        for (int i = 0; i < cards.size(); i++) {
-            list.add(new ProductPojo(productName.get(i).getText(), Double.parseDouble(price.get(i).getText().split("\\$")[1])));
+    public List<ProductBox> initProducts() {
+        List<ProductBox> productBoxList = new ArrayList<>();
+        if (!cards.isEmpty()) {
+            cards.forEach(element -> productBoxList.add(new ProductBox(element)));
         }
+        return productBoxList;
+    }
+
+    public List<ProductPojo> getProducts() {
+        List<ProductPojo> list = new ArrayList<>();
+        initProducts().forEach(
+                element -> list.add(element.toPojo())
+        );
         return list;
     }
+
+
+//    @Step
+//    public List<ProductPojo> productList() {
+//        List<ProductPojo> list = new ArrayList<>();
+//        for (int i = 0; i < cards.size(); i++) {
+//            list.add(new ProductPojo(productName.get(i).getText(), Double.parseDouble(price.get(i).getText().split("\\$")[1])));
+//        }
+//        return list;
+//    }
 
     @Step("Вернуться к покупкам")
     public HomePage doClickButtonContinueShopping() {

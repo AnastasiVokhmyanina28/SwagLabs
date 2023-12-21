@@ -28,12 +28,11 @@ public class HomePage implements ToolBarElements {
     private final SelenideElement ascendingOrderOfPrice = $x("//option[@value='lohi']").as("Сортировка по возрастанию цены");
     private final SelenideElement productName = $("#item_4_title_link").as("Название товара");
     private final SelenideElement deleteButton = $("#remove-sauce-labs-backpack").as("Кнопка удаления товара");
-    private final SelenideElement addButton = $("#add-to-cart-sauce-labs-backpack").as("Кнопка добавления товара");
+    private final SelenideElement addButtonBackpack = $("#add-to-cart-sauce-labs-backpack").as("Кнопка добавления товара");
+    private final SelenideElement addButtonJacket = $("#add-to-cart-sauce-labs-fleece-jacket").as("Кнопка добавления товара в корзину. Жакет");
     private final SelenideElement price = $x("//div[@class='inventory_item_label']/a[@id='item_4_title_link']/../following-sibling::div//div[@class='inventory_item_price']").as("Цена товара");
-    List<ProductBox> allProducts = initProducts();
 
-    //todo
-    private List<ProductBox> initProducts() {
+    public List<ProductBox> initProducts() {
         List<ProductBox> result = new ArrayList<>();
         if (!productTableElements.isEmpty()) {
             productTableElements.forEach(
@@ -48,7 +47,7 @@ public class HomePage implements ToolBarElements {
 
     public List<ProductPojo> getProducts() {
         List result = new ArrayList<ProductPojo>();
-        allProducts.forEach(
+        initProducts().forEach(
                 productBox -> result.add(productBox.toPojo())
         );
         return result;
@@ -73,8 +72,7 @@ public class HomePage implements ToolBarElements {
 
     @Step("Добавление товара в корзину")
     public HomePage addItemToCart() {
-
-        addButton.click();
+        addButtonBackpack.click();
         assertThat(deleteButton.isDisplayed()).as("Кнопка 'Remove' не отображается. Товар не добавлен в корзину").isTrue();
         assertThat(badge.isDisplayed()).as("При добавлении товара, на корзине не отображается уведомляющий знак").isTrue();
         assertThat(container.getText()).isEqualTo("1");
