@@ -15,8 +15,7 @@ public class SortingGoodsTest extends BaseClass {
         HomePage homePage = authPage.fillInFields(userData.getUser(), userData.getPassword());
 
         homePage
-                .removeFromCart()
-                .getAllProducts();
+                .removeFromCart();
 
 
         homePage.getProductSort().click(); //в  step
