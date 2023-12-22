@@ -15,7 +15,6 @@ public interface ProductsActions {
     default void compareProducts(List<ProductPojo> expectedProducts) {
         assertThat(getAllProducts())
                 .usingRecursiveFieldByFieldElementComparator()
-                .usingElementComparatorIgnoringFields("inCart")
                 .containsExactlyInAnyOrder(expectedProducts.toArray(new ProductPojo[0]));
     }
 

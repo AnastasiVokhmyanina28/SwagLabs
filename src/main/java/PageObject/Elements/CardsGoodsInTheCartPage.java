@@ -41,7 +41,7 @@ public class CardsGoodsInTheCartPage implements ProductsActions {
     public List<ProductPojo> getAllProducts() {
         List<ProductPojo> list = new ArrayList<>();
         initProducts().forEach(
-                element -> list.add(element.toPojo())
+                element -> list.add(element.toPojo(true))
         );
         return list;
     }
