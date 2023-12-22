@@ -1,7 +1,8 @@
 package PageObject.Elements.MainPage;
 
 import Data.models.ProductPojo;
-import ToolBar.ToolBarElements;
+import PageObject.Elements.blocks.ToolBar.ProductsActions;
+import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
@@ -15,7 +16,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Getter
-public class HomePage implements ToolBarElements {
+public class HomePage implements ToolBarElements, ProductsActions {
 
     public final SelenideElement allDeleteButton = $x("//button[contains(@id, 'remove')]").as("Все кнопки удаления");
     public final ElementsCollection allButtons = $$x("//div[@class='inventory_item']//button").as("Кнопки из карточки товара");
@@ -45,12 +46,32 @@ public class HomePage implements ToolBarElements {
     }
 
 
-    public List<ProductPojo> getProducts() {
+    @Override
+    @Step("Список все товаров")
+    public List<ProductPojo> getAllProducts() {
         List result = new ArrayList<ProductPojo>();
         initProducts().forEach(
                 productBox -> result.add(productBox.toPojo())
         );
         return result;
+    }
+
+    @Override
+    @Step("Записать в список товары, которые добавлены в корзину (главная страница)")
+    public List<ProductPojo> getProductsInCart() {
+        List<ProductPojo> pojoList = new ArrayList<>();
+        initProducts().forEach(
+                (product) ->
+                {
+                    if (product
+                            .inCart().equals(true)
+                    ) {
+                        pojoList.add(product.toPojo());
+
+                    }
+                }
+        );
+        return pojoList;
     }
 
     public HomePage removeFromCart() {
@@ -77,6 +98,13 @@ public class HomePage implements ToolBarElements {
         assertThat(badge.isDisplayed()).as("При добавлении товара, на корзине не отображается уведомляющий знак").isTrue();
         assertThat(container.getText()).isEqualTo("1");
         return this;
+    }
+
+    @Step("Добавить в корзину несколько товаров")
+    public HomePage doAddMultipleItemsToCart() {
+        addButtonBackpack.click();
+        addButtonJacket.click();
+        return new HomePage();
     }
 
     @Step("Сортировать элементы в порядке возрастания по именам")
@@ -116,6 +144,5 @@ public class HomePage implements ToolBarElements {
 
         assertThat(listOfGoods).isEqualTo(price);
     }
-
 
 }

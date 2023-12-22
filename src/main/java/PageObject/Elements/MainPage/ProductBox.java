@@ -21,8 +21,8 @@ public class ProductBox {
 //todo
         itemName = container.$(".inventory_item_name");
         itemPrice = container.$(".inventory_item_price");
-        addButton = container.$x("//button[@class='btn btn_primary btn_small btn_inventory ']");
-        deleteButton = container.$x("//button[@class='btn btn_secondary btn_small btn_inventory ']");
+        addButton = container.$x(".//button[@class='btn btn_primary btn_small btn_inventory ']");
+        deleteButton = container.$x(".//button[@class='btn btn_secondary btn_small btn_inventory ']");
     }
 
     @Step
@@ -37,7 +37,11 @@ public class ProductBox {
     }
 
     public ProductPojo toPojo() {
-        return new ProductPojo(getName(), getPrice());
+        return new ProductPojo(getName(), getPrice(), inCart());
+    }
+
+    public ProductPojo toPojo(Boolean inCart) {
+        return new ProductPojo(getName(), getPrice(), inCart);
     }
 
     @Step

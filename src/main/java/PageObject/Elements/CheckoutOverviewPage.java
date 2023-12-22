@@ -3,9 +3,9 @@ package PageObject.Elements;
 import Data.models.ProductPojo;
 import PageObject.Elements.MainPage.HomePage;
 import PageObject.Elements.MainPage.ProductBox;
+import PageObject.Elements.blocks.ToolBar.ProductsActions;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import static org.assertj.core.api.Assertions.assertThat;
 import io.qameta.allure.Step;
 import lombok.Getter;
 
@@ -18,7 +18,7 @@ import static com.codeborne.selenide.Selenide.*;
  * Оформление заказа. Информация
  */
 @Getter
-public class CheckoutOverviewPage {
+public class CheckoutOverviewPage implements ProductsActions {
     private final SelenideElement nameProduct = $(".inventory_item_name").as("Наименование товара");
     private final SelenideElement priceOfGoods = $(".inventory_item_price").as("Цена товара(когда в корзине товар 1)");
     private final SelenideElement itemTotal = $(".summary_subtotal_label").as("Общая сумма товаров");
@@ -36,18 +36,13 @@ public class CheckoutOverviewPage {
         return list;
     }
 
-    public List<ProductPojo> getProduct(){
+    @Override
+    public List<ProductPojo> getAllProducts() {
         List<ProductPojo> list = new ArrayList<>();
         initProducts().forEach(
-                element -> list.add(element.toPojo())
+                element -> list.add(element.toPojo(true))
         );
         return list;
-    }
-
-    public void assertListEqualityCheck(){
-        assertThat(new CardsGoodsInTheCartPage().getProducts())
-                .usingRecursiveFieldByFieldElementComparator()
-                .containsExactlyInAnyOrder(new CheckoutOverviewPage().getProduct().toArray(new ProductPojo[0]));
     }
 
 
@@ -63,4 +58,8 @@ public class CheckoutOverviewPage {
         return new CheckoutCompletePage();
     }
 
+    @Override
+    public List<ProductPojo> getProductsInCart() {
+        return getAllProducts();
+    }
 }

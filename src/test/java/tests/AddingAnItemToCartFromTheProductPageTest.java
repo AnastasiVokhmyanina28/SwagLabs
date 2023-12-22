@@ -3,10 +3,10 @@ package tests;
 import Data.User.UserData;
 import PageObject.Elements.*;
 import PageObject.Elements.MainPage.HomePage;
+import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import Person.Person;
 import Servise.ChromeDriver.BaseClass;
 import Step.Steps;
-import ToolBar.ToolBarElements;
 import org.testng.annotations.Test;
 
 public class AddingAnItemToCartFromTheProductPageTest extends BaseClass implements ToolBarElements {

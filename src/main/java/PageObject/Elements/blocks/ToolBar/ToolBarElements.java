@@ -1,4 +1,4 @@
-package ToolBar;
+package PageObject.Elements.blocks.ToolBar;
 
 import PageObject.Elements.CardsGoodsInTheCartPage;
 import com.codeborne.selenide.SelenideElement;
@@ -18,8 +18,8 @@ public interface ToolBarElements {
         return new CardsGoodsInTheCartPage();
     }
 
-    @Step
-    default Integer getTheNumberOfItemsInTheCart(){
+    @Step("Количество товаров на бейдже")
+    default Integer getTheNumberOfItemsInTheCart() {
         return Integer.parseInt(badge.getText());
     }
 }

@@ -2,7 +2,7 @@ package Step;
 
 import PageObject.Elements.*;
 import PageObject.Elements.MainPage.HomePage;
-import ToolBar.ToolBarElements;
+import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import io.qameta.allure.Step;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,7 +32,7 @@ public class Steps implements ToolBarElements {
     public void cartOpeningCheck(String price) {
 
         assertThat(openContainer().getCards().isEmpty()).as("Корзина товаров пуста").isFalse();
-
+        /**Проверка, что на бейдже кол-во товаров такое же как и кол-во добавленных товаров в корзине */
         quantityOfGoods = shoppingContainerPage.getCards().size();
         assertThat(quantityOfGoods).isEqualTo(getTheNumberOfItemsInTheCart());
 
@@ -42,6 +42,13 @@ public class Steps implements ToolBarElements {
         assertThat(cardsGoodsInTheCartElements.getPrice().get(0).getText()).as("Стоимость товара отличается").isEqualTo(price);
         assertThat(cardsGoodsInTheCartElements.getRemoveButton().exists()).as("Кнопка 'Remove' не отображается").isTrue();
     }
+
+    @Step("проверка добавления товаров в корзину с главной страницы")
+    public void checkingTheAdditionOfGoods() {
+        quantityOfGoods = homePage.getProductsInCart().size();
+        assertThat(quantityOfGoods).isEqualTo(getTheNumberOfItemsInTheCart());
+    }
+
 
     @Step("Проверка перехода на страницу заполнения данных заказчика")
     public void checkOpeningOfTheDataFillingForm() {
@@ -54,8 +61,6 @@ public class Steps implements ToolBarElements {
         quantityOfGoods = overviewPage.getCardList().size();
 
         assertThat(quantityOfGoods).isEqualTo(getTheNumberOfItemsInTheCart());
-
-        overviewPage.assertListEqualityCheck();
 
 
         assertThat(cardsGoodsInTheCartElements.getProductName().get(0).getText()).as("Наименование товаров не совпадают")

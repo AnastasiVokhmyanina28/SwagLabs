@@ -8,4 +8,5 @@ import lombok.Getter;
 public class ProductPojo {
     private String productName;
     private Double productPrice;
+    private Boolean inCart;
 }
