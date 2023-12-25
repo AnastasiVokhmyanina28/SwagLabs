@@ -35,8 +35,10 @@ public class Steps implements ToolBarElements, CostOfGoods {
 
         assertThat(openContainer().getCards().isEmpty()).as("Корзина товаров пуста").isFalse();
         /**Проверка, что на бейдже кол-во товаров такое же как и кол-во добавленных товаров в корзине */
-        quantityOfGoods = shoppingContainerPage.getCards().size();
-        assertThat(quantityOfGoods).isEqualTo(getTheNumberOfItemsInTheCart());
+        productsQuantityControl(shoppingContainerPage.getCards().size());
+
+
+
 
         assertThat(cardsGoodsInTheCartElements.getProductName().get(0).getText()).as("Название товара отличается")
                 .isEqualTo(homePage.getProductName().getText());
@@ -59,7 +61,6 @@ public class Steps implements ToolBarElements, CostOfGoods {
     @Step("Проверка соответствия товаров в корзине и при оформлении заказа")
     public void orderPlacement() {
         productsQuantityControl(overviewPage.getAllProducts().size());
-
         assertThat(
                 (getCostOfGoods(overviewPage.getItemTotal().getText())).add(getCostOfGoods(overviewPage.getTax().getText())))
                 .isEqualTo(getCostOfGoods(overviewPage.getTotal().getText()));
