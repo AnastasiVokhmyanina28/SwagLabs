@@ -2,12 +2,13 @@ package Step;
 
 import PageObject.Elements.*;
 import PageObject.Elements.MainPage.HomePage;
+import PageObject.Elements.blocks.ToolBar.CostOfGoods;
 import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import io.qameta.allure.Step;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class Steps implements ToolBarElements {
+public class Steps implements ToolBarElements, CostOfGoods {
 
     private ProductCardPage productCardPage = new ProductCardPage();
     private CardsGoodsInTheCartPage shoppingContainerPage = new CardsGoodsInTheCartPage();
@@ -59,9 +60,9 @@ public class Steps implements ToolBarElements {
     public void orderPlacement() {
         productsQuantityControl(overviewPage.getAllProducts().size());
 
-        assertThat(Math.round((Double.parseDouble(overviewPage.getItemTotal().getText().split("\\$")[1])
-                + Double.parseDouble(overviewPage.getTax().getText().split("\\$")[1])) * 100.0) / 100.0)
-                .isEqualTo(Double.parseDouble(overviewPage.getTotal().getText().split("\\$")[1]));
+        assertThat(
+                (getCostOfGoods(overviewPage.getItemTotal().getText())).add(getCostOfGoods(overviewPage.getTax().getText())))
+                .isEqualTo(getCostOfGoods(overviewPage.getTotal().getText()));
     }
 
     @Step("Проверка подтверждения отправки заказа")
