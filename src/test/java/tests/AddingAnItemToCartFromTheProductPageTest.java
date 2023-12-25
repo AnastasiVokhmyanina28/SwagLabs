@@ -10,39 +10,37 @@ import Step.Steps;
 import org.testng.annotations.Test;
 
 public class AddingAnItemToCartFromTheProductPageTest extends BaseClass implements ToolBarElements {
-
-    private CardsGoodsInTheCartPage cardsGoodsInTheCartElements = new CardsGoodsInTheCartPage();
-    private CheckoutCompletePage checkoutCompletePage = new CheckoutCompletePage();
-    private CheckoutOverviewPage overviewPage = new CheckoutOverviewPage();
-    private AuthorizationPage authorization = new AuthorizationPage();
-    private OrderFormPage orderForm = new OrderFormPage();
     private Person person = Person.randomized();
-    private HomePage homePage = new HomePage();
-    private ProductCardPage productCardPage = new ProductCardPage();
-    private Steps steps = new Steps();
     private String price;
 
     @Test(description = "Добавить товар в корзину из карточки и оформить заказ", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void addingAnItemToCart(UserData data) {
         /**Авторизация*/
-        authorization.fillInFields(data.getUser(), data.getPassword());
+        new AuthorizationPage().fillInFields(data.getUser(), data.getPassword());
 
+        HomePage homePage = new HomePage();
         /**Очищение корзины*/
         homePage.removeFromCart();
 
         /**Открыть карточку товара*/
         homePage.getProductName().click();
+        ProductCardPage productCardPage = new ProductCardPage();
         price = productCardPage.getPrice().getText();
 
         /**Добавить товар в корзину*/
         productCardPage.getAddButton().click();
+        Steps steps = new Steps();
         steps.checkOfAddingAnItemToTheCart();
 
         /**Открытие корзины*/
         steps.cartOpeningCheck(price);
 
+        CardsGoodsInTheCartPage cardsGoodsInTheCartElements = new CardsGoodsInTheCartPage();
+
         cardsGoodsInTheCartElements.doClickButtonCheckout();
         steps.checkOpeningOfTheDataFillingForm();
+
+        OrderFormPage orderForm = new OrderFormPage();
 
         /** Заполнение данных для оформления заказа*/
         orderForm.getFirstName().setValue(person.getName());
@@ -53,8 +51,12 @@ public class AddingAnItemToCartFromTheProductPageTest extends BaseClass implemen
         orderForm.doClickButtonContinue();
         steps.orderPlacement();
 
+        CheckoutOverviewPage overviewPage = new CheckoutOverviewPage();
+
         overviewPage.doClickButtonFinish();
         steps.orderConfirmation();
+
+        CheckoutCompletePage checkoutCompletePage = new CheckoutCompletePage();
 
         checkoutCompletePage.doClickButtonBackHome();
         steps.homepageIsOpen();

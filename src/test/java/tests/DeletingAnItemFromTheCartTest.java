@@ -10,21 +10,24 @@ import Step.Steps;
 import org.testng.annotations.Test;
 
 public class DeletingAnItemFromTheCartTest extends BaseClass implements ToolBarElements {
-    private CardsGoodsInTheCartPage shoppingContainerPage = new CardsGoodsInTheCartPage();
-
-    private AuthorizationPage authorizationPage = new AuthorizationPage();
-    private HomePage homePage = new HomePage();
-    private Steps steps = new Steps();
     private String price;
 
     @Test(description = "Удаление товара из корзины", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void deletingAnItem(UserData data) {
-        authorizationPage.fillInFields(data.getUser(), data.getPassword());
+        new AuthorizationPage().fillInFields(data.getUser(), data.getPassword());
+
+        HomePage homePage = new HomePage();
         homePage.removeFromCart();
         homePage.addItemToCart();
+
         price = homePage.getPrice().getText();
+
         container.click();
+
+        Steps steps = new Steps();
         steps.cartOpeningCheck(price);
+
+        CardsGoodsInTheCartPage shoppingContainerPage = new CardsGoodsInTheCartPage();
         shoppingContainerPage.getRemoveButton().click();
         steps.productRemoval();
         shoppingContainerPage.doClickButtonContinueShopping();

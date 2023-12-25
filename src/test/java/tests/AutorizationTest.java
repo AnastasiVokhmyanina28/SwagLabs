@@ -7,11 +7,9 @@ import org.testng.annotations.Test;
 
 public class AutorizationTest extends BaseClass {
 
-    private AuthorizationPage authorizationPage = new AuthorizationPage();
-
     @Test(description = "Авторизация существующего пользователя", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void authorization(UserData data) {
-        authorizationPage.fillInFields(data.getUser(), data.getPassword());
+        new AuthorizationPage().fillInFields(data.getUser(), data.getPassword());
     }
 
 }

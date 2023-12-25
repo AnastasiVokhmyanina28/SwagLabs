@@ -14,6 +14,7 @@ public class Steps implements ToolBarElements {
     private CheckoutOverviewPage overviewPage = new CheckoutOverviewPage();
     private HomePage homePage = new HomePage();
     private OrderFormPage orderForm = new OrderFormPage();
+    private AuthorizationPage authorizationPage = new AuthorizationPage();
     private CheckoutCompletePage checkoutCompletePage = new CheckoutCompletePage();
     private Integer quantityOfGoods;
 
@@ -43,10 +44,9 @@ public class Steps implements ToolBarElements {
         assertThat(cardsGoodsInTheCartElements.getRemoveButton().exists()).as("Кнопка 'Remove' не отображается").isTrue();
     }
 
-    @Step("проверка добавления товаров в корзину с главной страницы")
+    @Step("Проверка добавления товаров в корзину с главной страницы (число на бейдже соответствует кол-ву элементов в корзине)")
     public void checkingTheAdditionOfGoods() {
-        quantityOfGoods = homePage.getProductsInCart().size();
-        assertThat(quantityOfGoods).isEqualTo(getTheNumberOfItemsInTheCart());
+        productsQuantityControl(homePage.getProductsInCart().size());
     }
 
 
@@ -57,24 +57,11 @@ public class Steps implements ToolBarElements {
 
     @Step("Проверка соответствия товаров в корзине и при оформлении заказа")
     public void orderPlacement() {
+        productsQuantityControl(overviewPage.getAllProducts().size());
 
-        quantityOfGoods = overviewPage.getCardList().size();
-
-        assertThat(quantityOfGoods).isEqualTo(getTheNumberOfItemsInTheCart());
-
-
-        assertThat(cardsGoodsInTheCartElements.getProductName().get(0).getText()).as("Наименование товаров не совпадают")
-                .isEqualTo(overviewPage.getNameProduct().getText());
-
-        assertThat(cardsGoodsInTheCartElements.getPrice().get(0).getText()).as("Стоимость товаров не совпадают")
-                .isEqualTo(overviewPage.getPriceOfGoods().getText());
-
-        assertThat(cardsGoodsInTheCartElements.getPrice().get(0).getText()).as("Стоимость товаров не совпадают")
-                .isEqualTo(overviewPage.getItemTotal().getText().split(": ")[1]);
-
-        assertThat(Double.parseDouble(overviewPage.getItemTotal().getText().split("\\$")[1])
-                + Double.parseDouble(overviewPage.getTax().getText().split("\\$")[1])).as("")
-                .isEqualTo(Double.parseDouble(overviewPage.getTotal().getText().split("\\$")[1])).as("проверка итоговой суммы");
+        assertThat(Math.round((Double.parseDouble(overviewPage.getItemTotal().getText().split("\\$")[1])
+                + Double.parseDouble(overviewPage.getTax().getText().split("\\$")[1])) * 100.0) / 100.0)
+                .isEqualTo(Double.parseDouble(overviewPage.getTotal().getText().split("\\$")[1]));
     }
 
     @Step("Проверка подтверждения отправки заказа")
@@ -98,5 +85,9 @@ public class Steps implements ToolBarElements {
         assertThat(homePage.getDeleteButton().exists()).isFalse();
     }
 
+    @Step
+    public void checkTheAuthorizationPage() {
+        assertThat(authorizationPage.getLogginButton().isDisplayed()).isTrue();
+    }
 
 }

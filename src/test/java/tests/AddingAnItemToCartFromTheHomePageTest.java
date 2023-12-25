@@ -9,17 +9,19 @@ import Step.Steps;
 import org.testng.annotations.Test;
 
 public class AddingAnItemToCartFromTheHomePageTest extends BaseClass implements ToolBarElements {
-    private AuthorizationPage authorizationPage = new AuthorizationPage();
-    private HomePage homePage = new HomePage();
-    private Steps steps = new Steps();
+
     private String price;
 
     @Test(description = "Добавление товара в корзину с главной страницы", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void addingAnItemToCart(UserData data) {
-        authorizationPage.fillInFields(data.getUser(), data.getPassword());
+        new AuthorizationPage().fillInFields(data.getUser(), data.getPassword());
+
+        HomePage homePage = new HomePage();
         homePage.removeFromCart();
         homePage.addItemToCart();
+
         price = homePage.getPrice().getText();
+        Steps steps = new Steps();
         steps.cartOpeningCheck(price);
     }
 }

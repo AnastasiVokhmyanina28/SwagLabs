@@ -47,7 +47,7 @@ public class HomePage implements ToolBarElements, ProductsActions {
 
 
     @Override
-    @Step("Список все товаров")
+    @Step("Список всех товаров")
     public List<ProductPojo> getAllProducts() {
         List result = new ArrayList<ProductPojo>();
         initProducts().forEach(
