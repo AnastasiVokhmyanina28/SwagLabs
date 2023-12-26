@@ -1,16 +1,17 @@
 package tests;
 
 import Data.User.UserData;
+import Data.models.ProductPojo;
 import PageObject.Elements.AuthorizationPage;
 import PageObject.Elements.CardsGoodsInTheCartPage;
 import PageObject.Elements.MainPage.HomePage;
 import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import Servise.ChromeDriver.BaseClass;
-import Step.Steps;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 public class DeletingAnItemFromTheCartTest extends BaseClass implements ToolBarElements {
-    private String price;
 
     @Test(description = "Удаление товара из корзины", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void deletingAnItem(UserData data) {
@@ -19,18 +20,17 @@ public class DeletingAnItemFromTheCartTest extends BaseClass implements ToolBarE
         HomePage homePage = new HomePage();
         homePage.removeFromCart();
         homePage.addItemToCart();
+        List<ProductPojo> list = homePage.getProductsInCart();
+        homePage.checkingTheAdditionOfGoods();
 
-        price = homePage.getPrice().getText();
-
-        container.click();
-
-        Steps steps = new Steps();
-        steps.cartOpeningCheck(price);
+        openContainer()
+                .compareProducts(list);
 
         CardsGoodsInTheCartPage shoppingContainerPage = new CardsGoodsInTheCartPage();
         shoppingContainerPage.getRemoveButton().click();
-        steps.productRemoval();
+        shoppingContainerPage.productRemoval();
+
         shoppingContainerPage.doClickButtonContinueShopping();
-        steps.checkTheDeleteButton();
+        homePage.checkTheDeleteButton();
     }
 }

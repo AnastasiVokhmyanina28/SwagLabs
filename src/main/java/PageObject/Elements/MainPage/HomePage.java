@@ -1,6 +1,7 @@
 package PageObject.Elements.MainPage;
 
 import Data.models.ProductPojo;
+import PageObject.Elements.ProductCardPage;
 import PageObject.Elements.blocks.ToolBar.ProductsActions;
 import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import com.codeborne.selenide.ElementsCollection;
@@ -49,7 +50,7 @@ public class HomePage implements ToolBarElements, ProductsActions {
     @Override
     @Step("Список всех товаров")
     public List<ProductPojo> getAllProducts() {
-        List result = new ArrayList<ProductPojo>();
+        List<ProductPojo> result = new ArrayList<>();
         initProducts().forEach(
                 productBox -> result.add(productBox.toPojo())
         );
@@ -143,6 +144,27 @@ public class HomePage implements ToolBarElements, ProductsActions {
                 .collect(Collectors.toList());
 
         assertThat(listOfGoods).isEqualTo(price);
+    }
+
+    @Step("Открыть карточку товара")
+    public ProductCardPage getCardPage() {
+        productName.click();
+        return new ProductCardPage();
+    }
+
+    @Step("Проверка отображения главной страницы")
+    public void homepageIsOpen() {
+        assertThat(getProductTableElements().isEmpty()).as("Карточки товаров не отображаются").isFalse();
+    }
+
+    @Step("Проверка добавления товаров в корзину с главной страницы (число на бейдже соответствует кол-ву элементов в корзине)")
+    public void checkingTheAdditionOfGoods() {
+        productsQuantityControl(getProductsInCart().size());
+    }
+
+    @Step("Проверка кнопки удаления")
+    public void checkTheDeleteButton() {
+        assertThat(getDeleteButton().exists()).isFalse();
     }
 
 }

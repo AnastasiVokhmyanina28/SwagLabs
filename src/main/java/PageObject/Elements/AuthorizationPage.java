@@ -10,7 +10,7 @@ import org.testng.annotations.DataProvider;
 
 import java.util.List;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Getter
@@ -35,5 +35,10 @@ public class AuthorizationPage {
         logginButton.click();
         assertThat(title.isDisplayed()).as("Заголовок не отображается. Пользователь не прошел авторизацию").isTrue();
         return new HomePage();
+    }
+
+    @Step("Отображение страницы авторизации")
+    public void checkTheAuthorizationPage() {
+        assertThat(getLogginButton().isDisplayed()).isTrue();
     }
 }

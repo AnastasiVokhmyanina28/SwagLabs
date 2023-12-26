@@ -1,16 +1,17 @@
 package tests;
 
 import Data.User.UserData;
+import Data.models.ProductPojo;
 import PageObject.Elements.AuthorizationPage;
+import PageObject.Elements.CardsGoodsInTheCartPage;
 import PageObject.Elements.MainPage.HomePage;
 import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import Servise.ChromeDriver.BaseClass;
-import Step.Steps;
 import org.testng.annotations.Test;
 
-public class AddingAnItemToCartFromTheHomePageTest extends BaseClass implements ToolBarElements {
+import java.util.List;
 
-    private String price;
+public class AddingAnItemToCartFromTheHomePageTest extends BaseClass implements ToolBarElements {
 
     @Test(description = "Добавление товара в корзину с главной страницы", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void addingAnItemToCart(UserData data) {
@@ -20,8 +21,12 @@ public class AddingAnItemToCartFromTheHomePageTest extends BaseClass implements 
         homePage.removeFromCart();
         homePage.addItemToCart();
 
-        price = homePage.getPrice().getText();
-        Steps steps = new Steps();
-        steps.cartOpeningCheck(price);
+        List<ProductPojo> pojoList = homePage.getProductsInCart();
+
+        openContainer();
+        CardsGoodsInTheCartPage cartPage = new CardsGoodsInTheCartPage();
+        cartPage.cartOpeningCheck();
+        cartPage.compareProducts(pojoList);
+
     }
 }

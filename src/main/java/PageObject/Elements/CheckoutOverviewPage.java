@@ -3,7 +3,9 @@ package PageObject.Elements;
 import Data.models.ProductPojo;
 import PageObject.Elements.MainPage.HomePage;
 import PageObject.Elements.MainPage.ProductBox;
+import PageObject.Elements.blocks.ToolBar.CostOfGoods;
 import PageObject.Elements.blocks.ToolBar.ProductsActions;
+import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
@@ -13,12 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Оформление заказа. Информация
  */
 @Getter
-public class CheckoutOverviewPage implements ProductsActions {
+public class CheckoutOverviewPage implements ProductsActions, ToolBarElements, CostOfGoods {
     private final SelenideElement nameProduct = $(".inventory_item_name").as("Наименование товара");
     private final SelenideElement priceOfGoods = $(".inventory_item_price").as("Цена товара(когда в корзине товар 1)");
     private final SelenideElement itemTotal = $(".summary_subtotal_label").as("Общая сумма товаров");
@@ -61,5 +64,13 @@ public class CheckoutOverviewPage implements ProductsActions {
     @Override
     public List<ProductPojo> getProductsInCart() {
         return getAllProducts();
+    }
+
+    @Step("Проверка соответствия товаров в корзине и в чеке")
+    public void orderPlacement() {
+        productsQuantityControl(getAllProducts().size());
+        assertThat(
+                (getCostOfGoods(getItemTotal().getText())).add(getCostOfGoods(getTax().getText())))
+                .isEqualTo(getCostOfGoods(getTotal().getText()));
     }
 }

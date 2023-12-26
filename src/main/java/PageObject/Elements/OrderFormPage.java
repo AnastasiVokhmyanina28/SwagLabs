@@ -1,10 +1,13 @@
 package PageObject.Elements;
 
+import Person.Person;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import lombok.Getter;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * форма оформления заказа(ввод данных)
@@ -28,5 +31,19 @@ public class OrderFormPage {
     public CheckoutOverviewPage doClickButtonContinue() {
         continueButton.click();
         return new CheckoutOverviewPage();
+    }
+
+    @Step("Проверка, что страница открыта")
+    public void assertPageActive() {
+        assertThat(getTitle().exists()).as("Форма заполнения данных не обнаружена").isTrue();
+    }
+
+    @Step("Заполнить форму данными")
+    public void dataFillingPerson() {
+        Person person = Person.randomized();
+
+        getFirstName().setValue(person.getName());
+        getLastName().setValue(person.getLastName());
+        getPostalCode().setValue(person.getPostalCode());
     }
 }

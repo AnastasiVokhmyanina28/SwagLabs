@@ -1,14 +1,17 @@
 package PageObject.Elements.MainPage;
 
 import Data.models.ProductPojo;
+import PageObject.Elements.blocks.ToolBar.CostOfGoods;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import lombok.NonNull;
 
+import java.math.BigDecimal;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class ProductBox {
+public class ProductBox implements CostOfGoods {
 
     SelenideElement container;
     private SelenideElement itemName;
@@ -31,9 +34,8 @@ public class ProductBox {
     }
 
     @Step
-    public Double getPrice() {
-        return
-                Double.valueOf(itemPrice.getText().replace("$", ""));
+    public BigDecimal getPrice() {
+        return getCostOfGoods(itemPrice.getText());
     }
 
     public ProductPojo toPojo() {

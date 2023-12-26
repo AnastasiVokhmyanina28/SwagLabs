@@ -1,17 +1,16 @@
 package tests;
 
 import Data.User.UserData;
+import Data.models.ProductPojo;
 import PageObject.Elements.*;
 import PageObject.Elements.MainPage.HomePage;
 import PageObject.Elements.blocks.ToolBar.ToolBarElements;
-import Person.Person;
 import Servise.ChromeDriver.BaseClass;
-import Step.Steps;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 public class AddingAnItemToCartFromTheProductPageTest extends BaseClass implements ToolBarElements {
-    private Person person = Person.randomized();
-    private String price;
 
     @Test(description = "Добавить товар в корзину из карточки и оформить заказ", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void addingAnItemToCart(UserData data) {
@@ -23,42 +22,38 @@ public class AddingAnItemToCartFromTheProductPageTest extends BaseClass implemen
         homePage.removeFromCart();
 
         /**Открыть карточку товара*/
-        homePage.getProductName().click();
+        homePage.getCardPage();
         ProductCardPage productCardPage = new ProductCardPage();
-        price = productCardPage.getPrice().getText();
 
         /**Добавить товар в корзину*/
         productCardPage.getAddButton().click();
-        Steps steps = new Steps();
-        steps.checkOfAddingAnItemToTheCart();
+        List<ProductPojo> list = productCardPage.getAllProducts();
 
-        /**Открытие корзины*/
-        steps.cartOpeningCheck(price);
+        productCardPage.checkOfAddingAnItemToTheCart();
 
         CardsGoodsInTheCartPage cardsGoodsInTheCartElements = new CardsGoodsInTheCartPage();
-
+        /**Открытие корзины*/
+        openContainer();
+        cardsGoodsInTheCartElements.compareProducts(list);
+        cardsGoodsInTheCartElements.cartOpeningCheck();
         cardsGoodsInTheCartElements.doClickButtonCheckout();
-        steps.checkOpeningOfTheDataFillingForm();
 
-        OrderFormPage orderForm = new OrderFormPage();
+        OrderFormPage formPage = new OrderFormPage();
+        formPage.assertPageActive();
 
         /** Заполнение данных для оформления заказа*/
-        orderForm.getFirstName().setValue(person.getName());
-        orderForm.getLastName().setValue(person.getLastName());
-        orderForm.getPostalCode().setValue(person.getPostalCode());
+        formPage.dataFillingPerson();
 
         /**Проверка данных заказа*/
-        orderForm.doClickButtonContinue();
-        steps.orderPlacement();
-
+        formPage.doClickButtonContinue();
         CheckoutOverviewPage overviewPage = new CheckoutOverviewPage();
+        overviewPage.orderPlacement();
 
         overviewPage.doClickButtonFinish();
-        steps.orderConfirmation();
+        CheckoutCompletePage completePage = new CheckoutCompletePage();
+        completePage.orderConfirmation();
 
-        CheckoutCompletePage checkoutCompletePage = new CheckoutCompletePage();
-
-        checkoutCompletePage.doClickButtonBackHome();
-        steps.homepageIsOpen();
+        completePage.doClickButtonBackHome();
+        homePage.homepageIsOpen();
     }
 }

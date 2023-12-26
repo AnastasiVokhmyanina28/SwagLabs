@@ -5,7 +5,8 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import lombok.Getter;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Getter
 public class CheckoutCompletePage {
@@ -17,8 +18,13 @@ public class CheckoutCompletePage {
 
 
     @Step("Вернуться на главный экран")
-    public HomePage doClickButtonBackHome(){
+    public HomePage doClickButtonBackHome() {
         backHomeButton.click();
         return new HomePage();
+    }
+
+    @Step("Проверка подтверждения отправки заказа")
+    public void orderConfirmation() {
+        assertThat(getText().exists()).as("Заказ не отправлен").isTrue();
     }
 }

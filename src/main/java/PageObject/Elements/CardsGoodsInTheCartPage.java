@@ -4,6 +4,7 @@ import Data.models.ProductPojo;
 import PageObject.Elements.MainPage.HomePage;
 import PageObject.Elements.MainPage.ProductBox;
 import PageObject.Elements.blocks.ToolBar.ProductsActions;
+import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
@@ -13,9 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Getter
-public class CardsGoodsInTheCartPage implements ProductsActions {
+public class CardsGoodsInTheCartPage implements ProductsActions, ToolBarElements {
     /**
      * описание карточки в корзине
      */
@@ -62,5 +64,17 @@ public class CardsGoodsInTheCartPage implements ProductsActions {
     public OrderFormPage doClickButtonCheckout() {
         checkout.click();
         return new OrderFormPage();
+    }
+
+    @Step("Проверка, что при добавлении товара корзина не пустая")
+    public void cartOpeningCheck() {
+        assertThat(getCards().isEmpty()).as("Корзина товаров пуста").isFalse();
+        productsQuantityControl(getCards().size());
+    }
+
+    @Step("Проверка удаления товара")
+    public void productRemoval() {
+        assertThat(badge.isDisplayed()).as("Бейдж количества товаров в корзине отображается").isFalse();
+        assertThat(getCards().isEmpty()).as("Товар из корзины не удален").isTrue();
     }
 }
