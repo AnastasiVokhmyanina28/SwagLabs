@@ -15,45 +15,36 @@ public class AddingAnItemToCartFromTheProductPageTest extends BaseClass implemen
     @Test(description = "Добавить товар в корзину из карточки и оформить заказ", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void addingAnItemToCart(UserData data) {
         /**Авторизация*/
-        new AuthorizationPage().fillInFields(data.getUser(), data.getPassword());
+        HomePage homePage = new AuthorizationPage().fillInFields(data.getUser(), data.getPassword());
 
-        HomePage homePage = new HomePage();
-        /**Очищение корзины*/
-        homePage.removeFromCart();
+        ProductCardPage productCardPage = homePage
+                .removeFromCart()
+                .getCardPage();
 
-        /**Открыть карточку товара*/
-        homePage.getCardPage();
-        ProductCardPage productCardPage = new ProductCardPage();
+        productCardPage
+                .addProduct()
+                .checkOfAddingAnItemToTheCart();
 
-        /**Добавить товар в корзину*/
-        productCardPage.getAddButton().click();
         List<ProductPojo> list = productCardPage.getAllProducts();
 
-        productCardPage.checkOfAddingAnItemToTheCart();
+        CardsGoodsInTheCartPage cardsGoodsInTheCartElements =
+                openContainer();
 
-        CardsGoodsInTheCartPage cardsGoodsInTheCartElements = new CardsGoodsInTheCartPage();
-        /**Открытие корзины*/
-        openContainer();
         cardsGoodsInTheCartElements.compareProducts(list);
         cardsGoodsInTheCartElements.cartOpeningCheck();
-        cardsGoodsInTheCartElements.doClickButtonCheckout();
 
-        OrderFormPage formPage = new OrderFormPage();
-        formPage.assertPageActive();
+        OrderFormPage formPage = cardsGoodsInTheCartElements.doClickButtonCheckout();
+        formPage
+                .dataFillingPerson()
+                .assertPageActive();
 
-        /** Заполнение данных для оформления заказа*/
-        formPage.dataFillingPerson();
-
-        /**Проверка данных заказа*/
-        formPage.doClickButtonContinue();
-        CheckoutOverviewPage overviewPage = new CheckoutOverviewPage();
+        CheckoutOverviewPage overviewPage = formPage.doClickButtonContinue();
         overviewPage.orderPlacement();
 
-        overviewPage.doClickButtonFinish();
-        CheckoutCompletePage completePage = new CheckoutCompletePage();
+        CheckoutCompletePage completePage = overviewPage.doClickButtonFinish();
         completePage.orderConfirmation();
 
-        completePage.doClickButtonBackHome();
-        homePage.homepageIsOpen();
+        completePage.doClickButtonBackHome()
+                .homepageIsOpen();
     }
 }

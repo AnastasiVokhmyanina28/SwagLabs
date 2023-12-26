@@ -39,11 +39,12 @@ public class OrderFormPage {
     }
 
     @Step("Заполнить форму данными")
-    public void dataFillingPerson() {
+    public OrderFormPage dataFillingPerson() {
         Person person = Person.randomized();
 
         getFirstName().setValue(person.getName());
         getLastName().setValue(person.getLastName());
         getPostalCode().setValue(person.getPostalCode());
+        return new OrderFormPage();
     }
 }

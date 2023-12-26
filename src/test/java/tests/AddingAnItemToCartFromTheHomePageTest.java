@@ -23,7 +23,7 @@ public class AddingAnItemToCartFromTheHomePageTest extends BaseClass implements 
 
         List<ProductPojo> pojoList = homePage.getProductsInCart();
 
-        openContainer();
+        openContainer().productsQuantityControl(pojoList.size());
         CardsGoodsInTheCartPage cartPage = new CardsGoodsInTheCartPage();
         cartPage.cartOpeningCheck();
         cartPage.compareProducts(pojoList);
