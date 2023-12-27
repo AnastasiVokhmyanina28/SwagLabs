@@ -61,7 +61,7 @@ public class CardsGoodsInTheCartPage implements ProductsActions, ToolBarElements
     }
 
     @Step("Перейти к оформлению товара")
-    public OrderFormPage doClickButtonCheckout() {
+    public OrderFormPage openOrderPage() {
         checkout.click();
         return new OrderFormPage();
     }

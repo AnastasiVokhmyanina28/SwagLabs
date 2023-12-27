@@ -15,7 +15,7 @@ public interface ToolBarElements {
 
 
     @Step("Открыть корзину")
-    default CardsGoodsInTheCartPage openContainer() {
+    default CardsGoodsInTheCartPage openCart() {
         container.click();
         return new CardsGoodsInTheCartPage();
     }

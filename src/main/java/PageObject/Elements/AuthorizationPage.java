@@ -28,8 +28,12 @@ public class AuthorizationPage {
         ).toArray(new UserData[0]);
     }
 
+    public HomePage login(UserData userData){
+        return login(userData.getUser(), userData.getPassword());
+    }
+
     @Step("Авторизация")
-    public HomePage fillInFields(String name, String passwords) {
+    public HomePage login(String name, String passwords) {
         userName.setValue(name);
         pass.setValue(passwords);
         logginButton.click();

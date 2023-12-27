@@ -9,7 +9,7 @@ public class AutorizationTest extends BaseClass {
 
     @Test(description = "Авторизация существующего пользователя", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void authorization(UserData data) {
-        new AuthorizationPage().fillInFields(data.getUser(), data.getPassword());
+        new AuthorizationPage().login(data.getUser(), data.getPassword());
     }
 
 }

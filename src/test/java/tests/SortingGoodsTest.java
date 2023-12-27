@@ -11,7 +11,7 @@ public class SortingGoodsTest extends BaseClass {
     @Test(description = "Отсортировать товар по алфавиту", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void sortProductName(UserData userData) {
 
-        HomePage homePage = new AuthorizationPage().fillInFields(userData.getUser(), userData.getPassword());
+        HomePage homePage = new AuthorizationPage().login(userData.getUser(), userData.getPassword());
 
         homePage
                 .removeFromCart();

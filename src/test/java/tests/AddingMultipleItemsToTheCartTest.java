@@ -16,7 +16,7 @@ public class AddingMultipleItemsToTheCartTest extends BaseClass implements ToolB
     public void addingMultipleItemsToTheCart(UserData data) {
         /**Авторизация*/
         AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.fillInFields(data.user, data.getPassword());
+        authorizationPage.login(data.user, data.getPassword());
 
         HomePage homePage = new HomePage();
 
@@ -29,13 +29,13 @@ public class AddingMultipleItemsToTheCartTest extends BaseClass implements ToolB
         homePage.checkingTheAdditionOfGoods();
 
         /** Перейти в корзину*/
-        openContainer();
+        openCart();
         CardsGoodsInTheCartPage cartPage = new CardsGoodsInTheCartPage();
         List<ProductPojo> pojoList = cartPage.getAllProducts();
         cartPage.compareProducts(list);
 
         /**Заполнить данные для заказа*/
-        cartPage.doClickButtonCheckout();
+        cartPage.openOrderPage();
         OrderFormPage orderFormPage = new OrderFormPage();
         orderFormPage.dataFillingPerson();
         orderFormPage.doClickButtonContinue();

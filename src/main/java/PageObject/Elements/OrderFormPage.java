@@ -34,8 +34,9 @@ public class OrderFormPage {
     }
 
     @Step("Проверка, что страница открыта")
-    public void assertPageActive() {
+    public OrderFormPage assertPageActive() {
         assertThat(getTitle().exists()).as("Форма заполнения данных не обнаружена").isTrue();
+        return this;
     }
 
     @Step("Заполнить форму данными")
@@ -45,6 +46,6 @@ public class OrderFormPage {
         getFirstName().setValue(person.getName());
         getLastName().setValue(person.getLastName());
         getPostalCode().setValue(person.getPostalCode());
-        return new OrderFormPage();
+        return this;
     }
 }

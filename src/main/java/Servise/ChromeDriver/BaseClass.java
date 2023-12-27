@@ -1,5 +1,6 @@
 package Servise.ChromeDriver;
 
+import PageObject.Elements.AuthorizationPage;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
@@ -43,5 +44,9 @@ public class BaseClass {
     @AfterClass
     public static void close() {
         closeWebDriver();
+    }
+
+    public AuthorizationPage openLoginPage(){
+        return new AuthorizationPage();
     }
 }

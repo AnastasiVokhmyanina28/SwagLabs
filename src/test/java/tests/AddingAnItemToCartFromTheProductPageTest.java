@@ -4,39 +4,43 @@ import Data.User.UserData;
 import Data.models.ProductPojo;
 import PageObject.Elements.*;
 import PageObject.Elements.MainPage.HomePage;
-import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import Servise.ChromeDriver.BaseClass;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class AddingAnItemToCartFromTheProductPageTest extends BaseClass implements ToolBarElements {
+public class AddingAnItemToCartFromTheProductPageTest extends BaseClass {
 
     @Test(description = "Добавить товар в корзину из карточки и оформить заказ", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
-    public void addingAnItemToCart(UserData data) {
+    public void addingAnItemToCart(UserData userData) {
         /**Авторизация*/
-        HomePage homePage = new AuthorizationPage().fillInFields(data.getUser(), data.getPassword());
+
+        AuthorizationPage auth = openLoginPage();
+
+        HomePage homePage = auth.login(userData);
+
+        homePage
+                .removeFromCart();
 
         ProductCardPage productCardPage = homePage
-                .removeFromCart()
                 .getCardPage();
 
         productCardPage
                 .addProduct()
                 .checkOfAddingAnItemToTheCart();
 
-        List<ProductPojo> list = productCardPage.getAllProducts();
+        List<ProductPojo> allProductsFromMainPage = productCardPage.getAllProducts();
 
-        CardsGoodsInTheCartPage cardsGoodsInTheCartElements =
-                openContainer();
+        CardsGoodsInTheCartPage cardsGoodsInTheCartElements = productCardPage.openCart();
 
-        cardsGoodsInTheCartElements.compareProducts(list);
+        cardsGoodsInTheCartElements.compareProducts(allProductsFromMainPage);
         cardsGoodsInTheCartElements.cartOpeningCheck();
 
-        OrderFormPage formPage = cardsGoodsInTheCartElements.doClickButtonCheckout();
+        OrderFormPage formPage = cardsGoodsInTheCartElements.openOrderPage();
+
         formPage
-                .dataFillingPerson()
-                .assertPageActive();
+                .assertPageActive()
+                .dataFillingPerson();
 
         CheckoutOverviewPage overviewPage = formPage.doClickButtonContinue();
         overviewPage.orderPlacement();
