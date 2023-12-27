@@ -14,7 +14,7 @@ public class AddingMultipleItemsToTheCartTest extends BaseClass implements ToolB
 
     @Test(description = "Добавление нескольких товаров в корзину", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void addingMultipleItemsToTheCart(UserData data) {
-        HomePage homePage = new AuthorizationPage().fillInFields(data.getUser(), data.getPassword());
+        HomePage homePage = new AuthorizationPage().login(data.getUser(), data.getPassword());
 
         homePage.removeFromCart()
                 .doAddMultipleItemsToCart()

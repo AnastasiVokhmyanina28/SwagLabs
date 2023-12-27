@@ -15,7 +15,7 @@ public class AddingAnItemToCartFromTheProductPageTest extends BaseClass implemen
     @Test(description = "Добавить товар в корзину из карточки и оформить заказ", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void addingAnItemToCart(UserData data) {
         /**Авторизация*/
-        HomePage homePage = new AuthorizationPage().fillInFields(data.getUser(), data.getPassword());
+        HomePage homePage = new AuthorizationPage().login(data.getUser(), data.getPassword());
 
         ProductCardPage productCardPage = homePage
                 .removeFromCart()

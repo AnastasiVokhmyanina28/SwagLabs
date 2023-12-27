@@ -15,7 +15,7 @@ public class DeletingAnItemFromTheCartTest extends BaseClass implements ToolBarE
 
     @Test(description = "Удаление товара из корзины", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void deletingAnItem(UserData data) {
-        HomePage homePage = new AuthorizationPage().fillInFields(data.getUser(), data.getPassword())
+        HomePage homePage = new AuthorizationPage().login(data.getUser(), data.getPassword())
                 .removeFromCart()
                 .addItemToCart()
                 .checkingTheAdditionOfGoods();

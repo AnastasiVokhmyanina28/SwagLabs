@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AuthorizationPage {
     private final SelenideElement userName = $("#user-name").as("Поле ввода 'UserName'");
     private final SelenideElement pass = $("#password").as("Поле ввода 'Password'");
-    private final SelenideElement logginButton = $("#login-button").as("Кнопка 'Login'");
+    private final SelenideElement loginButton = $("#login-button").as("Кнопка 'Login'");
     private final SelenideElement title = $(".app_logo").as("Заголовок с главной страницы");
 
     @DataProvider()
@@ -28,18 +28,22 @@ public class AuthorizationPage {
         ).toArray(new UserData[0]);
     }
 
+    public HomePage login(UserData data) {
+        return login(data.getUser(), data.getPassword());
+    }
+
     @Step("Авторизация")
-    public HomePage fillInFields(String name, String passwords) {
+    public HomePage login(String name, String passwords) {
         userName.setValue(name);
         pass.setValue(passwords);
-        logginButton.click();
+        loginButton.click();
         assertThat(title.isDisplayed()).as("Заголовок не отображается. Пользователь не прошел авторизацию").isTrue();
         return new HomePage();
     }
 
     @Step("Отображение страницы авторизации")
     public AuthorizationPage checkTheAuthorizationPage() {
-        assertThat(getLogginButton().isDisplayed()).isTrue();
+        assertThat(getLoginButton().isDisplayed()).isTrue();
         return this;
     }
 }
