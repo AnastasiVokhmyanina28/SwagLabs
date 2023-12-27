@@ -15,18 +15,17 @@ public class AddingAnItemToCartFromTheHomePageTest extends BaseClass implements 
 
     @Test(description = "Добавление товара в корзину с главной страницы", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void addingAnItemToCart(UserData data) {
-        new AuthorizationPage().fillInFields(data.getUser(), data.getPassword());
+        HomePage homePage = new AuthorizationPage().fillInFields(data.getUser(), data.getPassword());
 
-        HomePage homePage = new HomePage();
-        homePage.removeFromCart();
-        homePage.addItemToCart();
+        homePage.removeFromCart()
+                .addItemToCart();
 
         List<ProductPojo> pojoList = homePage.getProductsInCart();
 
-        openContainer().productsQuantityControl(pojoList.size());
-        CardsGoodsInTheCartPage cartPage = new CardsGoodsInTheCartPage();
+        CardsGoodsInTheCartPage cartPage = openContainer();
+
+        cartPage.productsQuantityControl(pojoList.size());
         cartPage.cartOpeningCheck();
         cartPage.compareProducts(pojoList);
-
     }
 }

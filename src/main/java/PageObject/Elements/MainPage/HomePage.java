@@ -105,7 +105,7 @@ public class HomePage implements ToolBarElements, ProductsActions {
     public HomePage doAddMultipleItemsToCart() {
         addButtonBackpack.click();
         addButtonJacket.click();
-        return new HomePage();
+        return this;
     }
 
     @Step("Сортировать элементы в порядке возрастания по именам")
@@ -158,8 +158,9 @@ public class HomePage implements ToolBarElements, ProductsActions {
     }
 
     @Step("Проверка добавления товаров в корзину с главной страницы (число на бейдже соответствует кол-ву элементов в корзине)")
-    public void checkingTheAdditionOfGoods() {
+    public HomePage checkingTheAdditionOfGoods() {
         productsQuantityControl(getProductsInCart().size());
+        return this;
     }
 
     @Step("Проверка кнопки удаления")

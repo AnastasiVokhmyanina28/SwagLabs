@@ -72,9 +72,11 @@ public class CardsGoodsInTheCartPage implements ProductsActions, ToolBarElements
         productsQuantityControl(getCards().size());
     }
 
-    @Step("Проверка удаления товара")
-    public void productRemoval() {
+    @Step("Удаление товара из корзины")
+    public void deleteProduct() {
+        getRemoveButton().click();
         assertThat(badge.isDisplayed()).as("Бейдж количества товаров в корзине отображается").isFalse();
         assertThat(getCards().isEmpty()).as("Товар из корзины не удален").isTrue();
     }
+
 }

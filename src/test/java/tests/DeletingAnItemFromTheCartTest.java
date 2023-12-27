@@ -15,22 +15,19 @@ public class DeletingAnItemFromTheCartTest extends BaseClass implements ToolBarE
 
     @Test(description = "Удаление товара из корзины", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void deletingAnItem(UserData data) {
-        new AuthorizationPage().fillInFields(data.getUser(), data.getPassword());
-
-        HomePage homePage = new HomePage();
-        homePage.removeFromCart();
-        homePage.addItemToCart();
+        HomePage homePage = new AuthorizationPage().fillInFields(data.getUser(), data.getPassword())
+                .removeFromCart()
+                .addItemToCart()
+                .checkingTheAdditionOfGoods();
         List<ProductPojo> list = homePage.getProductsInCart();
-        homePage.checkingTheAdditionOfGoods();
 
-        openContainer()
-                .compareProducts(list);
+        CardsGoodsInTheCartPage shoppingContainerPage = openContainer();
+        shoppingContainerPage.compareProducts(list);
 
-        CardsGoodsInTheCartPage shoppingContainerPage = new CardsGoodsInTheCartPage();
-        shoppingContainerPage.getRemoveButton().click();
-        shoppingContainerPage.productRemoval();
 
-        shoppingContainerPage.doClickButtonContinueShopping();
-        homePage.checkTheDeleteButton();
+        shoppingContainerPage.deleteProduct();
+
+        shoppingContainerPage.doClickButtonContinueShopping()
+                .checkTheDeleteButton();
     }
 }

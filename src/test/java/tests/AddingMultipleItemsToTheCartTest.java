@@ -14,51 +14,37 @@ public class AddingMultipleItemsToTheCartTest extends BaseClass implements ToolB
 
     @Test(description = "Добавление нескольких товаров в корзину", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void addingMultipleItemsToTheCart(UserData data) {
-        /**Авторизация*/
-        AuthorizationPage authorizationPage = new AuthorizationPage();
-        authorizationPage.fillInFields(data.user, data.getPassword());
+        HomePage homePage = new AuthorizationPage().fillInFields(data.getUser(), data.getPassword());
 
-        HomePage homePage = new HomePage();
+        homePage.removeFromCart()
+                .doAddMultipleItemsToCart()
+                .checkingTheAdditionOfGoods();
 
-        /**Очистка*/
-        homePage.removeFromCart();
-
-        /**Добавить несколько товаров в корзину*/
-        homePage.doAddMultipleItemsToCart();
         List<ProductPojo> list = homePage.getProductsInCart();
-        homePage.checkingTheAdditionOfGoods();
 
-        /** Перейти в корзину*/
-        openContainer();
-        CardsGoodsInTheCartPage cartPage = new CardsGoodsInTheCartPage();
+        CardsGoodsInTheCartPage cartPage = openContainer();
         List<ProductPojo> pojoList = cartPage.getAllProducts();
         cartPage.compareProducts(list);
 
-        /**Заполнить данные для заказа*/
-        cartPage.doClickButtonCheckout();
-        OrderFormPage orderFormPage = new OrderFormPage();
+        OrderFormPage orderFormPage = cartPage.doClickButtonCheckout();
         orderFormPage.dataFillingPerson();
-        orderFormPage.doClickButtonContinue();
 
-        CheckoutOverviewPage overviewPage = new CheckoutOverviewPage();
-        /**Проверка чека*/
+        CheckoutOverviewPage overviewPage = orderFormPage.doClickButtonContinue();
         overviewPage.orderPlacement();
         overviewPage.compareProducts(pojoList);
 
-        /**Завершение оформления заказа*/
-        overviewPage.doClickButtonFinish();
-        CheckoutCompletePage completePage = new CheckoutCompletePage();
-        completePage.orderConfirmation();
-        completePage.doClickButtonBackHome();
-        homePage.homepageIsOpen();
+        CheckoutCompletePage completePage = overviewPage.doClickButtonFinish();
 
-        /**Выход с сайта*/
+        completePage.orderConfirmation();
+        completePage.doClickButtonBackHome()
+                .homepageIsOpen();
+//???
         MenuPage menuPage = new MenuPage();
         if (!menuPage.getMenu().isDisplayed()) {
-            menu.click();
+            menuPage.openMenu();
         }
-        menuPage.getLogout().click();
-        authorizationPage.checkTheAuthorizationPage();
+        menuPage.logOut()
+                .checkTheAuthorizationPage();
     }
 
 }
