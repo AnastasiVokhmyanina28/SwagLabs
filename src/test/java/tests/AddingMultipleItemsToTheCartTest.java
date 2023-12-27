@@ -49,7 +49,8 @@ public class AddingMultipleItemsToTheCartTest extends BaseClass implements ToolB
         if (!menuPage.getMenu().isDisplayed()) {
             openMenu();
         }
-        menuPage.logOut()
+        menuPage
+                .logOut()
                 .checkTheAuthorizationPage();
     }
 
