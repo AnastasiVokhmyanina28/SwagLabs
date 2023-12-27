@@ -67,10 +67,11 @@ public class CheckoutOverviewPage implements ProductsActions, ToolBarElements, C
     }
 
     @Step("Проверка соответствия товаров в корзине и в чеке")
-    public void orderPlacement() {
+    public CheckoutOverviewPage orderPlacement() {
         productsQuantityControl(getAllProducts().size());
         assertThat(
                 (getCostOfGoods(getItemTotal().getText())).add(getCostOfGoods(getTax().getText())))
                 .isEqualTo(getCostOfGoods(getTotal().getText()));
+        return this;
     }
 }

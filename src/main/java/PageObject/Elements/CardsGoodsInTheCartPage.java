@@ -67,16 +67,18 @@ public class CardsGoodsInTheCartPage implements ProductsActions, ToolBarElements
     }
 
     @Step("Проверка, что при добавлении товара корзина не пустая")
-    public void cartOpeningCheck() {
+    public CardsGoodsInTheCartPage cartOpeningCheck() {
         assertThat(getCards().isEmpty()).as("Корзина товаров пуста").isFalse();
         productsQuantityControl(getCards().size());
+        return this;
     }
 
     @Step("Удаление товара из корзины")
-    public void deleteProduct() {
+    public CardsGoodsInTheCartPage deleteProduct() {
         getRemoveButton().click();
         assertThat(badge.isDisplayed()).as("Бейдж количества товаров в корзине отображается").isFalse();
         assertThat(getCards().isEmpty()).as("Товар из корзины не удален").isTrue();
+        return this;
     }
 
 }

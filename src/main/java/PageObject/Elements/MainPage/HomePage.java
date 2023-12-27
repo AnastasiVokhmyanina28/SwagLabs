@@ -153,8 +153,9 @@ public class HomePage implements ToolBarElements, ProductsActions {
     }
 
     @Step("Проверка отображения главной страницы")
-    public void homepageIsOpen() {
+    public HomePage homepageIsOpen() {
         assertThat(getProductTableElements().isEmpty()).as("Карточки товаров не отображаются").isFalse();
+        return this;
     }
 
     @Step("Проверка добавления товаров в корзину с главной страницы (число на бейдже соответствует кол-ву элементов в корзине)")
@@ -164,8 +165,9 @@ public class HomePage implements ToolBarElements, ProductsActions {
     }
 
     @Step("Проверка кнопки удаления")
-    public void checkTheDeleteButton() {
+    public HomePage checkTheDeleteButton() {
         assertThat(getDeleteButton().exists()).isFalse();
+        return this;
     }
 
 }

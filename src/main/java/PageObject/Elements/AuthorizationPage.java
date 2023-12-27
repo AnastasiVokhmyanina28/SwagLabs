@@ -38,7 +38,8 @@ public class AuthorizationPage {
     }
 
     @Step("Отображение страницы авторизации")
-    public void checkTheAuthorizationPage() {
+    public AuthorizationPage checkTheAuthorizationPage() {
         assertThat(getLogginButton().isDisplayed()).isTrue();
+        return this;
     }
 }

@@ -62,13 +62,14 @@ public class ProductCardPage implements ToolBarElements, ProductsActions, CostOf
     }
 
     @Step("Проверка добавления товара в корзину из карточки товара")
-    public void checkOfAddingAnItemToTheCart() {
+    public ProductCardPage checkOfAddingAnItemToTheCart() {
         assertThat(getDeleteButton().exists()).as("Кнопка 'Remove' не отображается.").isTrue();
         assertThat(badge.isDisplayed()).as("При добавлении товара, на корзине не отображается уведомляющий знак").isTrue();
+        return this;
     }
 
     @Step("Добавить товар в корзину")
-    public ProductCardPage addProduct(){
+    public ProductCardPage addProduct() {
         getAddButton().click();
         return new ProductCardPage();
     }

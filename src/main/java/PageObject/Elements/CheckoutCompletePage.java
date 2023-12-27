@@ -24,7 +24,8 @@ public class CheckoutCompletePage {
     }
 
     @Step("Проверка подтверждения отправки заказа")
-    public void orderConfirmation() {
+    public CheckoutCompletePage orderConfirmation() {
         assertThat(getText().exists()).as("Заказ не отправлен").isTrue();
+        return this;
     }
 }
