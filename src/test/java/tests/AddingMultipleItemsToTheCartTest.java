@@ -14,34 +14,40 @@ public class AddingMultipleItemsToTheCartTest extends BaseClass implements ToolB
 
     @Test(description = "Добавление нескольких товаров в корзину", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void addingMultipleItemsToTheCart(UserData data) {
-        HomePage homePage = new AuthorizationPage().login(data.getUser(), data.getPassword());
 
-        homePage.removeFromCart()
+        AuthorizationPage authorizationPage = openLoginPage();
+
+        HomePage homePage = authorizationPage.login(data);
+        homePage
+                .removeFromCart()
                 .doAddMultipleItemsToCart()
                 .checkingTheAdditionOfGoods();
 
         List<ProductPojo> list = homePage.getProductsInCart();
 
-        CardsGoodsInTheCartPage cartPage = openContainer();
+        CardsGoodsInTheCartPage cartPage = openCart();
         List<ProductPojo> pojoList = cartPage.getAllProducts();
         cartPage.compareProducts(list);
 
-        OrderFormPage orderFormPage = cartPage.doClickButtonCheckout();
+        OrderFormPage orderFormPage = cartPage.openOrderPage();
         orderFormPage.dataFillingPerson();
 
         CheckoutOverviewPage overviewPage = orderFormPage.doClickButtonContinue();
-        overviewPage.orderPlacement();
-        overviewPage.compareProducts(pojoList);
+
+        overviewPage
+                .orderPlacement()
+                .compareProducts(pojoList);
 
         CheckoutCompletePage completePage = overviewPage.doClickButtonFinish();
 
-        completePage.orderConfirmation();
-        completePage.doClickButtonBackHome()
+        completePage
+                .orderConfirmation()
+                .doClickButtonBackHome()
                 .homepageIsOpen();
-//???
+
         MenuPage menuPage = new MenuPage();
         if (!menuPage.getMenu().isDisplayed()) {
-            menuPage.openMenu();
+            openMenu();
         }
         menuPage.logOut()
                 .checkTheAuthorizationPage();

@@ -18,10 +18,4 @@ public class MenuPage {
         return new AuthorizationPage();
     }
 
-    @Step("Открыть меню")
-    public MenuPage openMenu() {
-        menu.click();
-        return new MenuPage();
-    }
-
 }

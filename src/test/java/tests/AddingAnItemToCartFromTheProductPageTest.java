@@ -14,37 +14,42 @@ public class AddingAnItemToCartFromTheProductPageTest extends BaseClass implemen
 
     @Test(description = "Добавить товар в корзину из карточки и оформить заказ", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void addingAnItemToCart(UserData data) {
-        /**Авторизация*/
-        HomePage homePage = new AuthorizationPage().login(data.getUser(), data.getPassword());
+        AuthorizationPage authorizationPage = openLoginPage();
+
+        HomePage homePage = authorizationPage.login(data);
+        homePage.removeFromCart();
 
         ProductCardPage productCardPage = homePage
-                .removeFromCart()
                 .getCardPage();
 
         productCardPage
                 .addProduct()
                 .checkOfAddingAnItemToTheCart();
 
-        List<ProductPojo> list = productCardPage.getAllProducts();
+        List<ProductPojo> allProductsFromMainPage = productCardPage.getAllProducts();
 
-        CardsGoodsInTheCartPage cardsGoodsInTheCartElements =
-                openContainer();
+        CardsGoodsInTheCartPage cardsGoodsInTheCartElements = openCart();
 
-        cardsGoodsInTheCartElements.compareProducts(list);
-        cardsGoodsInTheCartElements.cartOpeningCheck();
+        cardsGoodsInTheCartElements
+                .cartOpeningCheck()
+                .compareProducts(allProductsFromMainPage);
 
-        OrderFormPage formPage = cardsGoodsInTheCartElements.doClickButtonCheckout();
+        OrderFormPage formPage = cardsGoodsInTheCartElements.openOrderPage();
+
         formPage
-                .dataFillingPerson()
-                .assertPageActive();
+                .assertPageActive()
+                .dataFillingPerson();
 
         CheckoutOverviewPage overviewPage = formPage.doClickButtonContinue();
-        overviewPage.orderPlacement();
+
+        overviewPage
+                .orderPlacement();
 
         CheckoutCompletePage completePage = overviewPage.doClickButtonFinish();
-        completePage.orderConfirmation();
 
-        completePage.doClickButtonBackHome()
+        completePage
+                .orderConfirmation()
+                .doClickButtonBackHome()
                 .homepageIsOpen();
     }
 }

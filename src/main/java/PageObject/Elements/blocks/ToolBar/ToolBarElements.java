@@ -1,6 +1,7 @@
 package PageObject.Elements.blocks.ToolBar;
 
 import PageObject.Elements.CardsGoodsInTheCartPage;
+import PageObject.Elements.MenuPage;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
@@ -15,9 +16,15 @@ public interface ToolBarElements {
 
 
     @Step("Открыть корзину")
-    default CardsGoodsInTheCartPage openContainer() {
+    default CardsGoodsInTheCartPage openCart() {
         container.click();
         return new CardsGoodsInTheCartPage();
+    }
+
+    @Step("Открыть меню")
+    default MenuPage openMenu() {
+        menuButton.click();
+        return new MenuPage();
     }
 
     @Step("Количество товаров на бейдже")

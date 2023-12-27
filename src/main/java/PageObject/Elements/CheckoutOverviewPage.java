@@ -66,7 +66,7 @@ public class CheckoutOverviewPage implements ProductsActions, ToolBarElements, C
         return getAllProducts();
     }
 
-    @Step("Проверка соответствия товаров в корзине и в чеке")
+    @Step("Проверка товаров в чеке. Проверка суммы")
     public CheckoutOverviewPage orderPlacement() {
         productsQuantityControl(getAllProducts().size());
         assertThat(
