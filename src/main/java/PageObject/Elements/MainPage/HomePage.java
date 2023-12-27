@@ -170,4 +170,11 @@ public class HomePage implements ToolBarElements, ProductsActions {
         return this;
     }
 
+    @Step("Отсортировать товары на странице по возрастанию цены")
+    public HomePage sortProduct() {
+        productSort.click();
+        sortElementsInAscendingOrderPrice(listOfElementsPrice);
+        return this;
+    }
+
 }

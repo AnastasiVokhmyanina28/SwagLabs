@@ -8,10 +8,11 @@ import org.testng.annotations.Test;
 
 public class SortingGoodsTest extends BaseClass {
 
-    @Test(description = "Отсортировать товар по алфавиту", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
+    @Test(description = "Отсортировать товар по возрастанию цены", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void sortProductName(UserData userData) {
 
-        HomePage homePage = new AuthorizationPage().login(userData.getUser(), userData.getPassword());
+        AuthorizationPage authorizationPage = openLoginPage();
+        HomePage homePage = authorizationPage.login(userData);
 
         homePage
                 .removeFromCart();
