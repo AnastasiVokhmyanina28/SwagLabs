@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class AddingMultipleItemsToTheCartTest extends BaseClass implements ToolBarElements {
+public class AddingMultipleItemsToTheCartTest extends BaseClass implements ToolBarElements, MenuPage {
 
     @Test(description = "Добавление нескольких товаров в корзину", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void addingMultipleItemsToTheCart(UserData data) {
@@ -45,12 +45,11 @@ public class AddingMultipleItemsToTheCartTest extends BaseClass implements ToolB
                 .doClickButtonBackHome()
                 .homepageIsOpen();
 
-        MenuPage menuPage = new MenuPage();
-        if (!menuPage.getMenu().isDisplayed()) {
+
+        if (!menuWindow.isDisplayed()) {
             openMenu();
         }
-        menuPage
-                .logOut()
+        logOut()
                 .checkTheAuthorizationPage();
     }
 
