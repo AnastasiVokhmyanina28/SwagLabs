@@ -1,34 +1,45 @@
 package tests;
 
 import Data.User.UserData;
+import Data.models.ProductPojo;
 import PageObject.Elements.AuthorizationPage;
 import PageObject.Elements.MainPage.HomePage;
+import PageObject.Elements.Sorting.SortingElements;
 import Servise.ChromeDriver.BaseClass;
 import org.testng.annotations.Test;
+
+import java.util.List;
+import java.util.function.Function;
 
 public class SortingGoodsTest extends BaseClass {
 
     @Test(description = "Отсортировать товар по возрастанию цены", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
-    public void sortProductName(UserData userData) {
+    public void sortProductName(UserData userData) {// + enum- список сортировок
 
         AuthorizationPage authorizationPage = openLoginPage();
         HomePage homePage = authorizationPage.login(userData);
 
-        homePage
-                .removeFromCart();
+        homePage.sortElementsInAscendingOrderPrice(homePage.getAllProducts());
 
 
-        homePage.getProductSort().click(); //в  step
-        homePage.getSortAZ().click();// <-
 
-        homePage.sortElementsInAscendingOrderNames(homePage.getListOfElementNames());
-//        homePage.homeElements.sortElementsInAscendingOrderNames(homePage.homeElements.getListOfElementsPrice());
+//                homePage.selectSorting(sortingElements.);    + передаем enum()
+        // забираем элементы в pojo
 
-//        homePage.homeElements.getAllProducts().get().getName();
+
+
+
+//        List<ProductPojo> awda = sort.apply(asPage - то, что отсортирвано дропауном );  //- , как нам нужно
+//сравнить списки pojo
+
+
+
+
+
     }
 
-    public void sortProductPrice() {
+//    public void wadawd(){
+//        sortProductName(new UserData("2","2"), (unsortedList) -> unsortedList.stream().sorted().toList());
+//    }
 
-
-    }
 }

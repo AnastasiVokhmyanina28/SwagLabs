@@ -1,22 +1,25 @@
 package PageObject.Elements.MainPage;
 
+import Data.User.Users;
 import Data.models.ProductPojo;
 import PageObject.Elements.ProductCardPage;
+import PageObject.Elements.Sorting.SortingElements;
 import PageObject.Elements.blocks.ToolBar.ProductsActions;
 import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import lombok.Getter;
+import org.testng.annotations.DataProvider;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Getter
+
 public class HomePage implements ToolBarElements, ProductsActions {
 
     public final SelenideElement allDeleteButton = $x("//button[contains(@id, 'remove')]").as("Все кнопки удаления");
@@ -108,7 +111,7 @@ public class HomePage implements ToolBarElements, ProductsActions {
         return this;
     }
 
-    @Step("Сортировать элементы в порядке возрастания по именам")
+    @Step("Сортировать элементы в порядке возрастания по именам. Проверка корректности работы сортировки")
     public void sortElementsInAscendingOrderNames(ElementsCollection elementsCollection) {
         List<String> listOfGoods = new ArrayList();
         List<String> adw = new ArrayList();
@@ -129,21 +132,24 @@ public class HomePage implements ToolBarElements, ProductsActions {
                 .isEqualTo(adw);
     }
 
-    @Step("Сортировка элеметов по возрастанию стоимости")
-    public void sortElementsInAscendingOrderPrice(ElementsCollection collection) {
-        List<Integer> listOfGoods = new ArrayList<>();
-        List<Integer> price = new ArrayList<>();
+    @Step("Выбор сортировки")
+    public HomePage selectSorting(SortingElements element) {
+        productSort.click();
+        productSort.selectOption(element.getOption());
+        this.initProducts();
+        return this;
+    }
 
-        for (int i = 0; i < collection.size(); i++) {
-            listOfGoods.add(Integer.parseInt(collection.get(i).getText().split("\\$")[1]));
-        }
+    @Step("Сортировка элеметов по возрастанию стоимости. Проверка корректности работы сортировки (передайтся список после сортировки на сайте)")
+    public static List<ProductPojo> sortElementsInAscendingOrderPrice(List<ProductPojo> pojoList) {
+        List<ProductPojo> listOfGoods = new ArrayList<>();
 
-        price = listOfGoods
+        listOfGoods = pojoList
                 .stream()
-                .sorted()
+                .sorted(Comparator.comparing(ProductPojo::getProductPrice))
                 .collect(Collectors.toList());
 
-        assertThat(listOfGoods).isEqualTo(price);
+        return listOfGoods;
     }
 
     @Step("Открыть карточку товара")
@@ -154,7 +160,7 @@ public class HomePage implements ToolBarElements, ProductsActions {
 
     @Step("Проверка отображения главной страницы")
     public HomePage homepageIsOpen() {
-        assertThat(getProductTableElements().isEmpty()).as("Карточки товаров не отображаются").isFalse();
+        assertThat(productTableElements.isEmpty()).as("Карточки товаров не отображаются").isFalse();
         return this;
     }
 
@@ -166,14 +172,7 @@ public class HomePage implements ToolBarElements, ProductsActions {
 
     @Step("Проверка кнопки удаления")
     public HomePage checkTheDeleteButton() {
-        assertThat(getDeleteButton().exists()).isFalse();
-        return this;
-    }
-
-    @Step("Отсортировать товары на странице по возрастанию цены")
-    public HomePage sortProduct() {
-        productSort.click();
-        sortElementsInAscendingOrderPrice(listOfElementsPrice);
+        assertThat(deleteButton.exists()).isFalse();
         return this;
     }
 
