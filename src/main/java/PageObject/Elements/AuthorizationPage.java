@@ -5,7 +5,6 @@ import Data.User.Users;
 import PageObject.Elements.MainPage.HomePage;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import lombok.Getter;
 import org.testng.annotations.DataProvider;
 
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
 import static com.codeborne.selenide.Selenide.$;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Getter
+
 public class AuthorizationPage {
     private final SelenideElement userName = $("#user-name").as("Поле ввода 'UserName'");
     private final SelenideElement pass = $("#password").as("Поле ввода 'Password'");
@@ -43,7 +42,7 @@ public class AuthorizationPage {
 
     @Step("Отображение страницы авторизации")
     public AuthorizationPage checkTheAuthorizationPage() {
-        assertThat(getLoginButton().isDisplayed()).isTrue();
+        assertThat(loginButton.isDisplayed()).isTrue();
         return this;
     }
 }

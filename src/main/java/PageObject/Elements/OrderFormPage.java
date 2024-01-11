@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * форма оформления заказа(ввод данных)
  */
-@Getter
+
 public class OrderFormPage {
     private final SelenideElement firstName = $("#first-name").as("Поле ввода 'first name'");
     private final SelenideElement lastName = $("#last-name").as("Поле ввода 'last name'");
@@ -35,7 +35,7 @@ public class OrderFormPage {
 
     @Step("Проверка, что страница открыта")
     public OrderFormPage assertPageActive() {
-        assertThat(getTitle().exists()).as("Форма заполнения данных не обнаружена").isTrue();
+        assertThat(title.exists()).as("Форма заполнения данных не обнаружена").isTrue();
         return this;
     }
 
@@ -43,9 +43,9 @@ public class OrderFormPage {
     public OrderFormPage dataFillingPerson() {
         Person person = Person.randomized();
 
-        getFirstName().setValue(person.getName());
-        getLastName().setValue(person.getLastName());
-        getPostalCode().setValue(person.getPostalCode());
+        firstName.setValue(person.getName());
+        lastName.setValue(person.getLastName());
+        postalCode.setValue(person.getPostalCode());
         return new OrderFormPage();
     }
 }

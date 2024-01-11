@@ -8,7 +8,7 @@ import lombok.Getter;
 import static com.codeborne.selenide.Selenide.$;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Getter
+
 public class CheckoutCompletePage {
     /**
      * Страница подтверждения заказа
@@ -25,7 +25,7 @@ public class CheckoutCompletePage {
 
     @Step("Проверка подтверждения отправки заказа")
     public CheckoutCompletePage orderConfirmation() {
-        assertThat(getText().exists()).as("Заказ не отправлен").isTrue();
+        assertThat(text.exists()).as("Заказ не отправлен").isTrue();
         return this;
     }
 }

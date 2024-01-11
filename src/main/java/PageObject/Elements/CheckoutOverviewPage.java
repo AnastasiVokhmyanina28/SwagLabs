@@ -9,7 +9,6 @@ import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Оформление заказа. Информация
  */
-@Getter
+
 public class CheckoutOverviewPage implements ProductsActions, ToolBarElements, CostOfGoods {
     private final SelenideElement nameProduct = $(".inventory_item_name").as("Наименование товара");
     private final SelenideElement priceOfGoods = $(".inventory_item_price").as("Цена товара(когда в корзине товар 1)");
@@ -70,8 +69,8 @@ public class CheckoutOverviewPage implements ProductsActions, ToolBarElements, C
     public CheckoutOverviewPage orderPlacement() {
         productsQuantityControl(getAllProducts().size());
         assertThat(
-                (getCostOfGoods(getItemTotal().getText())).add(getCostOfGoods(getTax().getText())))
-                .isEqualTo(getCostOfGoods(getTotal().getText()));
+                (getCostOfGoods(itemTotal.getText())).add(getCostOfGoods(tax.getText())))
+                .isEqualTo(getCostOfGoods(total.getText()));
         return this;
     }
 }

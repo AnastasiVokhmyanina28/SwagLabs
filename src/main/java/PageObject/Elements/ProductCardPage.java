@@ -7,7 +7,6 @@ import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ import java.util.List;
 import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Getter
 public class ProductCardPage implements ToolBarElements, ProductsActions, CostOfGoods {
     /**
      * Описание карточки товара
@@ -63,14 +61,14 @@ public class ProductCardPage implements ToolBarElements, ProductsActions, CostOf
 
     @Step("Проверка добавления товара в корзину из карточки товара")
     public ProductCardPage checkOfAddingAnItemToTheCart() {
-        assertThat(getDeleteButton().exists()).as("Кнопка 'Remove' не отображается.").isTrue();
+        assertThat(deleteButton.exists()).as("Кнопка 'Remove' не отображается.").isTrue();
         assertThat(badge.isDisplayed()).as("При добавлении товара, на корзине не отображается уведомляющий знак").isTrue();
         return this;
     }
 
     @Step("Добавить товар в корзину")
     public ProductCardPage addProduct() {
-        getAddButton().click();
+        addButton.click();
         return new ProductCardPage();
     }
 

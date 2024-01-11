@@ -8,7 +8,6 @@ import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,6 @@ import java.util.List;
 import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Getter
 public class CardsGoodsInTheCartPage implements ProductsActions, ToolBarElements {
     /**
      * описание карточки в корзине
@@ -68,16 +66,16 @@ public class CardsGoodsInTheCartPage implements ProductsActions, ToolBarElements
 
     @Step("Проверка, что при добавлении товара корзина не пустая")
     public CardsGoodsInTheCartPage cartOpeningCheck() {
-        assertThat(getCards().isEmpty()).as("Корзина товаров пуста").isFalse();
-        productsQuantityControl(getCards().size());
+        assertThat(cards.isEmpty()).as("Корзина товаров пуста").isFalse();
+        productsQuantityControl(cards.size());
         return this;
     }
 
     @Step("Удаление товара из корзины")
     public CardsGoodsInTheCartPage deleteProduct() {
-        getRemoveButton().click();
+        removeButton.click();
         assertThat(badge.isDisplayed()).as("Бейдж количества товаров в корзине отображается").isFalse();
-        assertThat(getCards().isEmpty()).as("Товар из корзины не удален").isTrue();
+        assertThat(cards.isEmpty()).as("Товар из корзины не удален").isTrue();
         return this;
     }
 
