@@ -94,9 +94,11 @@ public class HomePage implements ToolBarElements, ProductsActions {
     }
 
     @Step("Добавить в корзину несколько товаров")
-    public HomePage doAddMultipleItemsToCart() {
-        addButtonBackpack.click();
-        addButtonJacket.click();
+    public HomePage doAddMultipleItemsToCart(Integer quantityOfGoods) {
+        initProducts().stream()
+                .filter(productBox -> !productBox.inCart())
+                .limit(quantityOfGoods)
+                .forEach(ProductBox::addToCart);
         return this;
     }
 

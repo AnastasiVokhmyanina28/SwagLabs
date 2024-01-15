@@ -20,7 +20,7 @@ public class AddingMultipleItemsToTheCartTest extends BaseClass implements ToolB
         HomePage homePage = authorizationPage.login(data);
         homePage
                 .removeFromCart()
-                .doAddMultipleItemsToCart()
+                .doAddMultipleItemsToCart(3)
                 .checkingTheAdditionOfGoods();
 
         List<ProductPojo> list = homePage.getProductsInCart();
