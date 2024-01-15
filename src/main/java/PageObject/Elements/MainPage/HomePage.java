@@ -8,6 +8,7 @@ import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +20,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class HomePage implements ToolBarElements, ProductsActions {
 
-    private final ElementsCollection productTableElements = $$(".inventory_item").as("Карточки товаров на главное странице");
-    private final SelenideElement productSort = $(".product_sort_container").as("Сортировка товара");
-    private final SelenideElement productName = $("#item_4_title_link").as("Название товара");
-    private final SelenideElement deleteButton = $("#remove-sauce-labs-backpack").as("Кнопка удаления товара");
-    private final SelenideElement addButtonBackpack = $("#add-to-cart-sauce-labs-backpack").as("Кнопка добавления товара");
-    private final SelenideElement addButtonJacket = $("#add-to-cart-sauce-labs-fleece-jacket").as("Кнопка добавления товара в корзину. Жакет");
+    private final ElementsCollection productTableElements = $$(By.className("inventory_item")).as("Карточки товаров на главное странице");
+    private final SelenideElement productSort = $(By.className("product_sort_container")).as("Сортировка товара");
+    private final SelenideElement productName = $(By.id("item_4_title_link")).as("Название товара");
+    private final SelenideElement deleteButton = $(By.id("remove-sauce-labs-backpack")).as("Кнопка удаления товара");
+    private final SelenideElement addButtonBackpack = $(By.id("add-to-cart-sauce-labs-backpack")).as("Кнопка добавления товара");
+    private final SelenideElement addButtonJacket = $(By.id("add-to-cart-sauce-labs-fleece-jacket")).as("Кнопка добавления товара в корзину. Жакет");
 
     public List<ProductBox> initProducts() {
         List<ProductBox> result = new ArrayList<>();

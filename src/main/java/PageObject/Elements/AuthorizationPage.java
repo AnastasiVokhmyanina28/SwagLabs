@@ -5,6 +5,7 @@ import Data.User.Users;
 import PageObject.Elements.MainPage.HomePage;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 
 import java.util.List;
@@ -14,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class AuthorizationPage {
-    private final SelenideElement userName = $("#user-name").as("Поле ввода 'UserName'");
-    private final SelenideElement pass = $("#password").as("Поле ввода 'Password'");
-    private final SelenideElement loginButton = $("#login-button").as("Кнопка 'Login'");
-    private final SelenideElement title = $(".app_logo").as("Заголовок с главной страницы");
+    private final SelenideElement userName = $(By.id("user-name")).as("Поле ввода 'UserName'");
+    private final SelenideElement pass = $(By.id("password")).as("Поле ввода 'Password'");
+    private final SelenideElement loginButton = $(By.id("login-button")).as("Кнопка 'Login'");
+    private final SelenideElement title = $(By.className("app_logo")).as("Заголовок с главной страницы");
 
     @DataProvider()
     public static UserData[] authParamUser() {

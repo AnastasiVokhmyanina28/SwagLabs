@@ -9,6 +9,7 @@ import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +22,14 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 
 public class CheckoutOverviewPage implements ProductsActions, ToolBarElements, CostOfGoods {
-    private final SelenideElement nameProduct = $(".inventory_item_name").as("Наименование товара");
-    private final SelenideElement priceOfGoods = $(".inventory_item_price").as("Цена товара(когда в корзине товар 1)");
-    private final SelenideElement itemTotal = $(".summary_subtotal_label").as("Общая сумма товаров");
-    private final SelenideElement tax = $(".summary_tax_label").as("Налог");
+    private final SelenideElement nameProduct = $(By.className("inventory_item_name")).as("Наименование товара");
+    private final SelenideElement priceOfGoods = $(By.className("inventory_item_price")).as("Цена товара(когда в корзине товар 1)");
+    private final SelenideElement itemTotal = $(By.className("summary_subtotal_label")).as("Общая сумма товаров");
+    private final SelenideElement tax = $(By.className("summary_tax_label")).as("Налог");
     private final SelenideElement total = $x("//div[@class='summary_info_label summary_total_label']").as("Окончательная цена");
-    private final SelenideElement cancelButton = $("#cancel");
-    private final ElementsCollection cardList = $$(".cart_item").as("Список товаров");
-    private final SelenideElement finishButton = $("#finish");
+    private final SelenideElement cancelButton = $(By.id("cancel"));
+    private final ElementsCollection cardList = $$(By.className("cart_item")).as("Список товаров");
+    private final SelenideElement finishButton = $(By.id("finish"));
 
     public List<ProductBox> initProducts() {
         List<ProductBox> list = new ArrayList<>();

@@ -3,14 +3,15 @@ package PageObject.Elements.blocks.ToolBar;
 import PageObject.Elements.CardsGoodsInTheCartPage;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public interface ToolBarElements {
-    SelenideElement container = $("#shopping_cart_container").as("Корзина покупок");
-    SelenideElement badge = $(".shopping_cart_badge").as("Показатель количества товаров в корзине");
-    SelenideElement menuButton = $("#react-burger-menu-btn").as("Кнопка открытия 'Меню'");
+    SelenideElement container = $(By.id("shopping_cart_container")).as("Корзина покупок");
+    SelenideElement badge = $(By.className("shopping_cart_badge")).as("Показатель количества товаров в корзине");
+    SelenideElement menuButton = $(By.id("react-burger-menu-btn")).as("Кнопка открытия 'Меню'");
 
 
     @Step("Открыть корзину")

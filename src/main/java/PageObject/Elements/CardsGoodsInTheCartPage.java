@@ -8,6 +8,7 @@ import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +20,12 @@ public class CardsGoodsInTheCartPage implements ProductsActions, ToolBarElements
     /**
      * описание карточки в корзине
      */
-    private final ElementsCollection cards = $$(".cart_item_label").as("Карточки товара в корзине");
-    private final SelenideElement cardList = $(".cart_list").as("Список товаров в корзине");
-    private final ElementsCollection productName = $$(".inventory_item_name").as("Название товара");
-    private final ElementsCollection price = $$(".inventory_item_price").as("Стоимость товара");
-    private final SelenideElement continueShoppingButton = $("#continue-shopping").as("Кнопка 'Вернуться к покупкам'");
-    private final SelenideElement checkout = $("#checkout").as("Кнопка оформить заказ");
+    private final ElementsCollection cards = $$(By.className("cart_item_label")).as("Карточки товара в корзине");
+    private final SelenideElement cardList = $(By.className("cart_list")).as("Список товаров в корзине");
+    private final ElementsCollection productName = $$(By.className("inventory_item_name")).as("Название товара");
+    private final ElementsCollection price = $$(By.className("inventory_item_price")).as("Стоимость товара");
+    private final SelenideElement continueShoppingButton = $(By.id("continue-shopping")).as("Кнопка 'Вернуться к покупкам'");
+    private final SelenideElement checkout = $(By.id("checkout")).as("Кнопка оформить заказ");
     private final SelenideElement removeButton = $x("//button[@class='btn btn_secondary btn_small cart_button']")
             .as("Удалить карточку из корзины");
 

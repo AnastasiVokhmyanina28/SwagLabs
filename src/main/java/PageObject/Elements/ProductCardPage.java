@@ -7,6 +7,7 @@ import PageObject.Elements.blocks.ToolBar.ToolBarElements;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -19,13 +20,13 @@ public class ProductCardPage implements ToolBarElements, ProductsActions, CostOf
     /**
      * Описание карточки товара
      */
-    private final ElementsCollection cart = $$("#inventory_item_container").as("Карта товара");
-    private final SelenideElement photo = $(".inventory_details_img_container").as("Изображение товара");
+    private final ElementsCollection cart = $$(By.id("inventory_item_container")).as("Карта товара");
+    private final SelenideElement photo = $(By.className("inventory_details_img_container")).as("Изображение товара");
     private final SelenideElement productName = $x("//div[@class='inventory_details_name large_size']").as("Название товара");
-    private final SelenideElement price = $(".inventory_details_price").as("Стоимость товара");
-    private final SelenideElement deleteButton = $("#remove-sauce-labs-backpack").as("Кнопка удаления товара");
-    private final SelenideElement backToProductsButton = $("#back-to-products").as("Выйти из карточки товара на главную страницу");
-    private final SelenideElement addButton = $("#add-to-cart-sauce-labs-backpack").as("Кнопка добавления товара");
+    private final SelenideElement price = $(By.className("inventory_details_price")).as("Стоимость товара");
+    private final SelenideElement deleteButton = $(By.id("remove-sauce-labs-backpack")).as("Кнопка удаления товара");
+    private final SelenideElement backToProductsButton = $(By.id("back-to-products")).as("Выйти из карточки товара на главную страницу");
+    private final SelenideElement addButton = $(By.id("add-to-cart-sauce-labs-backpack")).as("Кнопка добавления товара");
 
     @Step
     public String getName() {
