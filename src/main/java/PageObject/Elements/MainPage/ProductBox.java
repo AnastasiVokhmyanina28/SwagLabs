@@ -25,7 +25,7 @@ public class ProductBox implements CostOfGoods {
         itemName = container.$(".inventory_item_name");
         itemPrice = container.$(".inventory_item_price");
         addButton = container.$x(".//button[@class='btn btn_primary btn_small btn_inventory ']");
-        deleteButton = container.$x(".//button[@class='btn btn_secondary btn_small btn_inventory ']");
+        deleteButton = container.$x(".//*[contains(@id,'remove')]");
     }
 
     @Step
@@ -60,6 +60,10 @@ public class ProductBox implements CostOfGoods {
     @Step
     public void removeFromCart() {
         deleteButton.click();
+    }
+
+    @Step("Для проверки на главной странице товаров")
+    public void assertActiveButton() {
         assertThat(addButton.isDisplayed()).as("Товар не удален").isTrue();
     }
 

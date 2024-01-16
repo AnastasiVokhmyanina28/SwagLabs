@@ -13,7 +13,7 @@ import java.util.List;
 
 public class DeletingAnItemFromTheCartTest extends BaseClass implements ToolBarElements {
 
-    @Test(description = "Удаление товара из корзины", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
+    @Test(description = "Удаление товара из корзины( Очистить корзину полностью)", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void deletingAnItem(UserData data) {
 
         AuthorizationPage authorizationPage = openLoginPage();
@@ -21,7 +21,7 @@ public class DeletingAnItemFromTheCartTest extends BaseClass implements ToolBarE
 
         homePage
                 .removeFromCart()
-                .addItemToCart()
+                .doAddMultipleItemsToCart(3)
                 .checkingTheAdditionOfGoods();
 
         List<ProductPojo> list = homePage.getProductsInCart();

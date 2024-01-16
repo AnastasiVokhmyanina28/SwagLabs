@@ -21,7 +21,7 @@ public class AddingAnItemToCartFromTheHomePageTest extends BaseClass implements 
         HomePage homePage = authorizationPage.login(userData);
 
         homePage.removeFromCart()
-                .addItemToCart();
+                .doAddMultipleItemsToCart(1);
 
         List<ProductPojo> pojoList = homePage.getProductsInCart();
 

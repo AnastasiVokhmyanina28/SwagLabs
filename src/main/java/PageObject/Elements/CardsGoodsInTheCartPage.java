@@ -74,7 +74,8 @@ public class CardsGoodsInTheCartPage implements ProductsActions, ToolBarElements
 
     @Step("Удаление товара из корзины")
     public CardsGoodsInTheCartPage deleteProduct() {
-        removeButton.click();
+        initProducts().stream().forEach(ProductBox::removeFromCart);
+
         assertThat(badge.isDisplayed()).as("Бейдж количества товаров в корзине отображается").isFalse();
         assertThat(cards.isEmpty()).as("Товар из корзины не удален").isTrue();
         return this;

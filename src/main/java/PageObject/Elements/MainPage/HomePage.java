@@ -24,8 +24,6 @@ public class HomePage implements ToolBarElements, ProductsActions {
     private final SelenideElement productSort = $(By.className("product_sort_container")).as("Сортировка товара");
     private final SelenideElement productName = $(By.id("item_4_title_link")).as("Название товара");
     private final SelenideElement deleteButton = $(By.id("remove-sauce-labs-backpack")).as("Кнопка удаления товара");
-    private final SelenideElement addButtonBackpack = $(By.id("add-to-cart-sauce-labs-backpack")).as("Кнопка добавления товара");
-    private final SelenideElement addButtonJacket = $(By.id("add-to-cart-sauce-labs-fleece-jacket")).as("Кнопка добавления товара в корзину. Жакет");
 
     public List<ProductBox> initProducts() {
         List<ProductBox> result = new ArrayList<>();
@@ -84,21 +82,15 @@ public class HomePage implements ToolBarElements, ProductsActions {
         return this;
     }
 
-    @Step("Добавление товара в корзину")
-    public HomePage addItemToCart() {
-        addButtonBackpack.click();
-        assertThat(deleteButton.isDisplayed()).as("Кнопка 'Remove' не отображается. Товар не добавлен в корзину").isTrue();
-        assertThat(badge.isDisplayed()).as("При добавлении товара, на корзине не отображается уведомляющий знак").isTrue();
-        assertThat(container.getText()).isEqualTo("1");
-        return this;
-    }
-
     @Step("Добавить в корзину несколько товаров")
     public HomePage doAddMultipleItemsToCart(Integer quantityOfGoods) {
         initProducts().stream()
                 .filter(productBox -> !productBox.inCart())
                 .limit(quantityOfGoods)
                 .forEach(ProductBox::addToCart);
+
+        assertThat(badge.isDisplayed()).as("При добавлении товара, на корзине не отображается уведомляющий знак").isTrue();
+        assertThat(Integer.parseInt(container.getText())).isEqualTo(quantityOfGoods);
         return this;
     }
 
