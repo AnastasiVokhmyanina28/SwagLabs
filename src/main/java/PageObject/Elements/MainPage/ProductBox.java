@@ -54,7 +54,7 @@ public class ProductBox implements CostOfGoods {
     @Step
     public void addToCart() {
         addButton.click();
-        assertThat(deleteButton.isDisplayed()).as("Товар не добавлен").isTrue();
+        assertThat(addButton.isDisplayed()).as("Товар не добавлен").isFalse();
     }
 
     @Step
