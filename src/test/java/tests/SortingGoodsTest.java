@@ -44,40 +44,67 @@ public class SortingGoodsTest extends BaseClass {
                         Users.STANDARD.getUserData(),
                         SortingElements.Z_TO_A,
                         fromZtoA
-                ).toArray()
+                ).toArray(),
 
-                ,
                 List.of(
                         Users.STANDARD.getUserData(),
                         SortingElements.LOW_TO_HIGH,
                         fromLowtoHigh
                 ).toArray(),
+
                 List.of(
                         Users.STANDARD.getUserData(),
                         SortingElements.HIGH_TO_LOW,
                         fromHightoLow
                 ).toArray(),
+
                 List.of(
                         Users.VISUAL.getUserData(),
                         SortingElements.A_TO_Z,
                         fromAtoZ
                 ).toArray(),
+
                 List.of(
                         Users.VISUAL.getUserData(),
                         SortingElements.Z_TO_A,
                         fromZtoA
                 ).toArray(),
+
                 List.of(
                         Users.VISUAL.getUserData(),
                         SortingElements.LOW_TO_HIGH,
                         fromLowtoHigh
                 ).toArray(),
+
                 List.of(
                         Users.VISUAL.getUserData(),
                         SortingElements.HIGH_TO_LOW,
                         fromHightoLow
-                ).toArray()
+                ).toArray(),
 
+                List.of(
+                        Users.PROBLEM.getUserData(),
+                        SortingElements.A_TO_Z,
+                        fromAtoZ
+                ).toArray(),
+
+                List.of(
+                        Users.PROBLEM.getUserData(),
+                        SortingElements.Z_TO_A,
+                        fromZtoA
+                ).toArray(),
+
+                List.of(
+                        Users.PROBLEM.getUserData(),
+                        SortingElements.LOW_TO_HIGH,
+                        fromLowtoHigh
+                ).toArray(),
+
+                List.of(
+                        Users.PROBLEM.getUserData(),
+                        SortingElements.HIGH_TO_LOW,
+                        fromHightoLow
+                ).toArray()
         };
 
     }

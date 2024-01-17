@@ -24,7 +24,8 @@ public class AuthorizationPage {
     public static UserData[] authParamUser() {
         return List.of(
                 Users.STANDARD.getUserData(),
-                Users.VISUAL.getUserData()
+                Users.VISUAL.getUserData(),
+                Users.PROBLEM.getUserData()
         ).toArray(new UserData[0]);
     }
 

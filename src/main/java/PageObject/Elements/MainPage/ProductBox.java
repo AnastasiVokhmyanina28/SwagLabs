@@ -60,11 +60,6 @@ public class ProductBox implements CostOfGoods {
     @Step
     public void removeFromCart() {
         deleteButton.click();
+        assertThat(deleteButton.isDisplayed()).as("Товар не удален").isFalse();
     }
-
-    @Step("Для проверки на главной странице товаров")
-    public void assertActiveButton() {
-        assertThat(addButton.isDisplayed()).as("Товар не удален").isTrue();
-    }
-
 }
