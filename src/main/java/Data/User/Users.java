@@ -1,6 +1,5 @@
 package Data.User;
 
-import Data.User.UserData;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
