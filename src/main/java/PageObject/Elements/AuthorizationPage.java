@@ -25,6 +25,7 @@ public class AuthorizationPage {
         return List.of(
                 Users.STANDARD.getUserData(),
                 Users.VISUAL.getUserData(),
+                Users.LOCKED.getUserData(),
                 Users.PROBLEM.getUserData()
         ).toArray(new UserData[0]);
     }

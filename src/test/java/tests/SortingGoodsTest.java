@@ -7,6 +7,7 @@ import PageObject.Elements.AuthorizationPage;
 import PageObject.Elements.MainPage.HomePage;
 import PageObject.Elements.Sorting.SortingElements;
 import Servise.ChromeDriver.BaseClass;
+import org.apache.log4j.Logger;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -16,6 +17,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SortingGoodsTest extends BaseClass {
+    private static final Logger log = Logger.getLogger(SortingGoodsTest.class);
+
 
     @DataProvider()
     public static Object[][] sortData() {
@@ -83,6 +86,30 @@ public class SortingGoodsTest extends BaseClass {
                 ).toArray(),
 
                 List.of(
+                        Users.LOCKED.getUserData(),
+                        SortingElements.A_TO_Z,
+                        fromAtoZ
+                ).toArray(),
+
+                List.of(
+                        Users.LOCKED.getUserData(),
+                        SortingElements.Z_TO_A,
+                        fromZtoA
+                ).toArray(),
+
+                List.of(
+                        Users.LOCKED.getUserData(),
+                        SortingElements.LOW_TO_HIGH,
+                        fromLowtoHigh
+                ).toArray(),
+
+                List.of(
+                        Users.LOCKED.getUserData(),
+                        SortingElements.HIGH_TO_LOW,
+                        fromHightoLow
+                ).toArray(),
+
+                List.of(
                         Users.PROBLEM.getUserData(),
                         SortingElements.A_TO_Z,
                         fromAtoZ
@@ -111,6 +138,8 @@ public class SortingGoodsTest extends BaseClass {
 
     @Test(description = "Отсортировать товар по убыванию цены", dataProvider = "sortData")
     public void sortProductName(UserData userData, SortingElements sortingElement, Comparator<ProductPojo> comparing) {
+
+        log.info(userData.getUser());
 
         AuthorizationPage authorizationPage = openLoginPage();
         HomePage homePage = authorizationPage.login(userData);
