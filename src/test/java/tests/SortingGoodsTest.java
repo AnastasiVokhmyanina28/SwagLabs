@@ -7,7 +7,7 @@ import PageObject.Elements.AuthorizationPage;
 import PageObject.Elements.MainPage.HomePage;
 import PageObject.Elements.Sorting.SortingElements;
 import Servise.ChromeDriver.BaseClass;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -17,7 +17,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SortingGoodsTest extends BaseClass {
-    private static final Logger log = Logger.getLogger(SortingGoodsTest.class);
+    private static final Logger log = Logger.getLogger(SortingGoodsTest.class.getName());
 
 
     @DataProvider()
