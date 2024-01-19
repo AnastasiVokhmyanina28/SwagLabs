@@ -9,11 +9,15 @@ import Servise.ChromeDriver.BaseClass;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class AddingMultipleItemsToTheCartTest extends BaseClass implements ToolBarElements, MenuPage {
+    private static final Logger log = Logger.getLogger(AddingMultipleItemsToTheCartTest.class.getName());
 
     @Test(description = "Добавление нескольких товаров в корзину", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void addingMultipleItemsToTheCart(UserData data) {
+
+        log.info(data.getUser());
 
         AuthorizationPage authorizationPage = openLoginPage();
 

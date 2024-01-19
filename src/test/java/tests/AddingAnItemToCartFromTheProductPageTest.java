@@ -9,11 +9,17 @@ import Servise.ChromeDriver.BaseClass;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class AddingAnItemToCartFromTheProductPageTest extends BaseClass implements ToolBarElements {
+    private static final Logger log = Logger.getLogger(AddingAnItemToCartFromTheProductPageTest.class.getName());
+
 
     @Test(description = "Добавить товар в корзину из карточки и оформить заказ", dataProvider = "authParamUser", dataProviderClass = AuthorizationPage.class)
     public void addingAnItemToCart(UserData data) {
+
+        log.info(data.getUser());
+
         AuthorizationPage authorizationPage = openLoginPage();
 
         HomePage homePage = authorizationPage.login(data);
