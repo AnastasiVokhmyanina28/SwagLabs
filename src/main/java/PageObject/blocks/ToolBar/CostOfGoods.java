@@ -1,4 +1,4 @@
-package PageObject.Elements.blocks.ToolBar;
+package PageObject.blocks.ToolBar;
 
 import io.qameta.allure.Step;
 

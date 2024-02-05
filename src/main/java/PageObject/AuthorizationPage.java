@@ -1,8 +1,8 @@
-package PageObject.Elements;
+package PageObject;
 
 import Data.User.UserData;
 import Data.User.Users;
-import PageObject.Elements.MainPage.HomePage;
+import PageObject.MainPage.HomePage;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;

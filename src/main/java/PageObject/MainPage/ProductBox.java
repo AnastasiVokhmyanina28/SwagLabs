@@ -1,7 +1,7 @@
-package PageObject.Elements.MainPage;
+package PageObject.MainPage;
 
 import Data.models.ProductPojo;
-import PageObject.Elements.blocks.ToolBar.CostOfGoods;
+import PageObject.blocks.ToolBar.CostOfGoods;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import lombok.NonNull;

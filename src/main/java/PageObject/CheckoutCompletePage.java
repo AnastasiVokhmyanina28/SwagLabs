@@ -1,9 +1,8 @@
-package PageObject.Elements;
+package PageObject;
 
-import PageObject.Elements.MainPage.HomePage;
+import PageObject.MainPage.HomePage;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import lombok.Getter;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;

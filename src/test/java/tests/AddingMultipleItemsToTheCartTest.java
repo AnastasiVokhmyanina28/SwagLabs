@@ -2,9 +2,9 @@ package tests;
 
 import Data.User.UserData;
 import Data.models.ProductPojo;
-import PageObject.Elements.*;
-import PageObject.Elements.MainPage.HomePage;
-import PageObject.Elements.blocks.ToolBar.ToolBarElements;
+import PageObject.*;
+import PageObject.MainPage.HomePage;
+import PageObject.blocks.ToolBar.ToolBarElements;
 import Servise.ChromeDriver.BaseClass;
 import org.testng.annotations.Test;
 

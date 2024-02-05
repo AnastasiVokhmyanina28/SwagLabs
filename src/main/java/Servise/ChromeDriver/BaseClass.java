@@ -1,6 +1,6 @@
 package Servise.ChromeDriver;
 
-import PageObject.Elements.AuthorizationPage;
+import PageObject.AuthorizationPage;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;

@@ -1,7 +1,7 @@
 package tests;
 
 import Data.User.UserData;
-import PageObject.Elements.AuthorizationPage;
+import PageObject.AuthorizationPage;
 import Servise.ChromeDriver.BaseClass;
 import org.testng.annotations.Test;
 

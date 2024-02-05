@@ -1,10 +1,10 @@
-package PageObject.Elements.MainPage;
+package PageObject.MainPage;
 
 import Data.models.ProductPojo;
-import PageObject.Elements.ProductCardPage;
-import PageObject.Elements.Sorting.SortingElements;
-import PageObject.Elements.blocks.ToolBar.ProductsActions;
-import PageObject.Elements.blocks.ToolBar.ToolBarElements;
+import PageObject.ProductCardPage;
+import PageObject.Sorting.SortingElements;
+import PageObject.blocks.ToolBar.ProductsActions;
+import PageObject.blocks.ToolBar.ToolBarElements;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;

@@ -1,4 +1,4 @@
-package PageObject.Elements.Sorting;
+package PageObject.Sorting;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -1,9 +1,9 @@
-package PageObject.Elements;
+package PageObject;
 
 import Data.models.ProductPojo;
-import PageObject.Elements.blocks.ToolBar.CostOfGoods;
-import PageObject.Elements.blocks.ToolBar.ProductsActions;
-import PageObject.Elements.blocks.ToolBar.ToolBarElements;
+import PageObject.blocks.ToolBar.CostOfGoods;
+import PageObject.blocks.ToolBar.ProductsActions;
+import PageObject.blocks.ToolBar.ToolBarElements;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;

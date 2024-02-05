@@ -1,6 +1,6 @@
-package PageObject.Elements.blocks.ToolBar;
+package PageObject.blocks.ToolBar;
 
-import PageObject.Elements.CardsGoodsInTheCartPage;
+import PageObject.CardsGoodsInTheCartPage;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
